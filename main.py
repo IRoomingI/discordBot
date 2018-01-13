@@ -24,7 +24,7 @@ async def on_ready():
     for s in client.servers:
         log("  - %s (%s)" % (s.name, s.id), "")
 
-    await client.change_presence(game=Game(name="keine Musik D:"))
+    await client.change_presence(game=Game(name=CONFIG.GAME))
 
 
 @client.event
