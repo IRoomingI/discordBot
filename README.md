@@ -1,6 +1,6 @@
 ## Discord Bot
 
-This is a bot written in Python with help of the [discord.py API](https://github.com/Rapptz/discord.py "discord.py Github Page").
+This is a bot written in Python with help of the [discord.py API](https://github.com/Rapptz/discord.py "discord.py GitHub Page").
 
 __Important! You should know how to create and set up a Discord bot__
 
@@ -28,7 +28,7 @@ This is project was started for fun and I can't promise frequent updates.
 
 Note: replace [PREFIX] with the prefix you chose in the CONFIG.py (default is: +)
 
-*   _[PREFIX]clear 4_  - deletes 4 messages from the channel including the command message (max nummber is 99)
+*   _[PREFIX]clear 4_  - deletes 4 messages from the channel including the command message (max number is 99)
 *   _[PREFIX]ping_  - the bot sends you a private message "Pong!" (not your ping in milliseconds)
 *   _[PREFIX]say Hello World_  - the bot sends this message and deletes your message
 *   _[PREFIX]type Hey guys!_  - the bot "types" the message letter by letter
