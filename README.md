@@ -28,7 +28,7 @@ This is project was started for fun and I can't promise frequent updates.
 
 Note: replace [PREFIX] with the prefix you chose in the CONFIG.py (default is: +)
 
-*   _[PREFIX]clear_ 4 - deletes 4 messages from the channel including the command message (max nummber is 99)
-*   _[PREFIX]ping_ - the bot sends you a private message "Pong!" (not your ping in milliseconds)
-*   _[PREFIX]say_ Hello World - the bot sends this message and deletes your message
-*   _[PREFIX]type_ Hey guys! - the bot "types" the message letter by letter
+*   _[PREFIX]clear 4_  - deletes 4 messages from the channel including the command message (max nummber is 99)
+*   _[PREFIX]ping_  - the bot sends you a private message "Pong!" (not your ping in milliseconds)
+*   _[PREFIX]say Hello World_  - the bot sends this message and deletes your message
+*   _[PREFIX]type Hey guys!_  - the bot "types" the message letter by letter
