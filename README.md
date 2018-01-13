@@ -1,10 +1,10 @@
 ## Discord Bot
 
-This is a bot written in Python with help of the [discord.py API](https://github.com/Rapptz/discord.py "discord.py GitHub Page").
+This is a bot written in Python with help of the [discord.py API](https://github.com/Rapptz/discord.py "discord.py Github Page").
 
-*Important! You should know how to create and set up a Discord bot*
+_Important! You should know how to create and set up a Discord bot_
 
-*Packages you need to run the bot:*
+Packages you need to run the bot:
 
 *   Python 3.5 or higher [[Download](https://python.org/downloads/ "Python Download")]
 *   discord.py package for Python (look at [discord.py](https://github.com/Rapptz/discord.py "discord.py Github Page") GitHub for installation info)
