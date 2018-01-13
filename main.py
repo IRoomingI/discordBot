@@ -1,7 +1,6 @@
 import discord
 from discord import Game, Embed, Color
-import SECRETS
-import STATICS
+import CONFIG
 from commands import cmd_ping, cmd_clear, cmd_type, cmd_say
 
 client = discord.Client()
@@ -29,8 +28,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith(STATICS.PREFIX):
-        invoke = message.content[len(STATICS.PREFIX):].split(" ")[0]
+    if message.content.startswith(CONFIG.PREFIX):
+        invoke = message.content[len(CONFIG.PREFIX):].split(" ")[0]
         args = message.content.split(" ")[1:]
         if commands.__contains__(invoke):
             await commands.get(invoke).ex(args, message, client, invoke)
@@ -38,4 +37,4 @@ async def on_message(message):
             await client.send_message(message.author, embed=Embed(color=Color.red(), description=("This command doesn't exist: %s" % invoke)))
 
 
-client.run(SECRETS.TOKEN)
+client.run(CONFIG.TOKEN)
