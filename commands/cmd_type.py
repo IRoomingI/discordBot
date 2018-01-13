@@ -1,4 +1,3 @@
-import discord
 import asyncio
 
 async def ex(args, message, client, invoke):
@@ -8,7 +7,7 @@ async def ex(args, message, client, invoke):
     await client.delete_message(message)
     prev_cont = prev_msg.content
     for letter in range(1, len(args)):
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.25)
         new_cont = prev_cont + args[letter]
         await client.edit_message(prev_msg, new_content=new_cont)
         prev_cont = new_cont

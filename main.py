@@ -2,7 +2,7 @@ import discord
 from discord import Game, Embed, Color
 import SECRETS
 import STATICS
-from commands import cmd_ping, cmd_clear, cmd_type
+from commands import cmd_ping, cmd_clear, cmd_type, cmd_say
 
 client = discord.Client()
 
@@ -12,6 +12,7 @@ commands = {
     "ping": cmd_ping,
     "clear": cmd_clear,
     "type": cmd_type,
+    "say": cmd_say,
 
 }
 
@@ -23,7 +24,7 @@ async def on_ready():
     for s in client.servers:
         print("  - %s (%s)" % (s.name, s.id))
 
-    await client.change_presence(game=Game(name="mit deiner Mutter"))
+    await client.change_presence(game=Game(name="keine Musik D:"))
 
 
 @client.event
