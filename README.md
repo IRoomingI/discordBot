@@ -9,7 +9,7 @@ Packages you need to run the bot:
 *   Python 3.5 or higher [[Download](https://python.org/downloads/ "Python Download")]
 *   discord.py package for Python (look at [discord.py](https://github.com/Rapptz/discord.py "discord.py Github Page") GitHub for installation info)
 *   asyncio package for Python
-    `pip install asyncio`
+    `python3 -m pip install -U asyncio`
 
 
 ## Please Read:
@@ -23,7 +23,7 @@ This is project was started for fun and I can't promise frequent updates.
 *   Enter the folder and add your Discord Bot Token to the _CONFIG.py_
     `TOKEN = "0123456789abcdefg"` (example Token)
 *   Execute the _main.py_
-    `python main.py`
+    `python3 main.py`
 *   That's all, now the bot should be running
 
 ## Commands
