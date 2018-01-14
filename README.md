@@ -20,7 +20,9 @@ This is project was started for fun and I can't promise frequent updates.
 ## Installation
 
 *   Clone or Download this repository to any place (I recommend a place you'll remember ;D)
-*   Enter the folder and execute the _main.py_
+*   Enter the folder and add your Discord Bot Token to the _CONFIG.py_
+    `TOKEN = "0123456789abcdefg"` (example Token)
+*   Execute the _main.py_
     `python main.py`
 *   That's all, now the bot should be running
 
