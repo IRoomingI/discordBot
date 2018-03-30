@@ -1,7 +1,7 @@
 import discord
 from discord import Game, Embed, Color
 import CONFIG
-from commands import cmd_ping, cmd_clear, cmd_type, cmd_say
+from commands import cmd_ping, cmd_clear, cmd_type, cmd_say, cmd_help
 from logger import log
 
 client = discord.Client()
@@ -13,6 +13,7 @@ commands = {
     "clear": cmd_clear,
     "type": cmd_type,
     "say": cmd_say,
+    "help": cmd_help,
 
 }
 
