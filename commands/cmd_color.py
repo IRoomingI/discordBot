@@ -16,7 +16,7 @@ async def ex(args, message, client, invoke):
         if(role is not None):
             await client.add_roles(message.author, role)
         else:
-            log("Couldn't change to color: %s" % args, "info")
+            log("Couldn't change to color: '%s'" % args, "error")
             await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(),
                                       description=("This color doesn't exist: %s. Type %scolor help" % (args, CONFIG.PREFIX))))
         if(oldrole is not None):
