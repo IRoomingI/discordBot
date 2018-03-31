@@ -24,7 +24,7 @@ async def ex(args, message, client, invoke):
     roles = message.server.roles
     args = args.__str__()[1:-1].replace("'", "")
     args = args.__str__().replace(",", "")
-    if not args == "help":
+    if not args == "help" or args == "default" or args == "clear":
         oldrole = hasRole(message)
         role = check(roles, args)
 
