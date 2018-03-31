@@ -26,9 +26,9 @@ async def ex(args, message, client, invoke):
         role = check(roles, args)
 
         if(role is not None):
-            await client.add_roles(message.author, role)
             if(oldrole is not None):
                 await client.remove_roles(message.author, oldrole)
+            await client.add_roles(message.author, role)
         else:
             log("Couldn't change to color: '%s'" % args, "error")
             if len(args) > 0:
