@@ -1,5 +1,3 @@
-import discord
-
 
 async def ex(args, message, client, invoke):
     args_out = ""
