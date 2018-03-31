@@ -42,12 +42,17 @@ async def ex(args, message, client, invoke):
             else:
                 await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(),
                                           description=("Type *%scolor help* to show all colors" % CONFIG.PREFIX)))
+    elif args == "default" or args == "clear":
+        roles = hasRole(message)
+        if len(roles) > 0:
+            for r in roles:
+                await client.remove_roles(message.author, r)
     else:
         msg = "All colors: "
         for element in colorList:
             if element is not colorList[-1]:
                 msg += element + ", "
             else:
-                msg += element
+                msg += element + ", default"
 
         await client.send_message(message.channel, msg)
