@@ -6,13 +6,13 @@ import asyncio
 colorList = ["red", "green", "blue", "orange", "purple"]
 
 
-def check(roles, args):
+def getNewRole(roles, args):
     for r in roles:
         if r.name == args:
             return r
 
 
-def hasRole(message):
+def getOldRoles(message):
     out = []
     for r in message.author.roles:
         if r.name in colorList:
@@ -35,13 +35,13 @@ async def ex(args, message, client, invoke):
         await client.send_message(message.channel, msg)
         
     elif args == "default" or args == "clear":
-        roles = hasRole(message)
+        roles = getOldRoles(message)
         if len(roles) > 0:
             for r in roles:
                 await client.remove_roles(message.author, r)
     else:
-        oldrole = hasRole(message)
-        role = check(roles, args)
+        oldrole = getOldRoles(message)
+        role = getNewRole(roles, args)
 
         if role is not None:
             if len(oldrole) > 0:
