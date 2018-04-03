@@ -12,7 +12,7 @@ async def ex(args, message, client, invoke):
         "color": " [args/color]"
     }
     for element in sorted(cmd_list):
-        msg += "    " + CONFIG.PREFIX + element + "\n"
+        msg += "    " + CONFIG.PREFIX + element + cmd_list[element] + "\n"
     msg += " ```"
     await client.delete_message(message)
     await client.send_message(message.channel, msg)
