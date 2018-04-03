@@ -3,7 +3,7 @@ import CONFIG
 from logger import log
 import asyncio
 
-colorList = ["red", "green", "blue", "orange"]
+colorList = ["red", "green", "blue", "orange", "purple"]
 
 
 def check(roles, args):
