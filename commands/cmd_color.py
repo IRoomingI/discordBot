@@ -39,6 +39,7 @@ async def ex(args, message, client, invoke):
         if len(roles) > 0:
             for r in roles:
                 await client.remove_roles(message.author, r)
+        log("Successfully cleared color!", "info")
     else:
         oldrole = getOldRoles(message)
         role = getNewRole(roles, args)
@@ -49,6 +50,7 @@ async def ex(args, message, client, invoke):
                     await client.remove_roles(message.author, r)
             await asyncio.sleep(0.5)
             await client.add_roles(message.author, role)
+            log("Successfully changed to color: '%s'" % args, "info")
         else:
             log("Couldn't change to color: '%s'" % args, "error")
             if len(args) > 0:
