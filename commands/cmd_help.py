@@ -14,6 +14,6 @@ async def ex(args, message, client, invoke):
     ]
     for element in cmd_list:
         msg += "    " + CONFIG.PREFIX + element + "\n"
-    msg += " ------------```"
+    msg += "\n------------```"
     await client.delete_message(message)
     await client.send_message(message.channel, msg)
