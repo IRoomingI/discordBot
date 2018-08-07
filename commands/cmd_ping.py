@@ -1,4 +1,4 @@
-from logger import log
+from utils import log
 
 async def ex(args, message, client, invoke):
     args_out = ""

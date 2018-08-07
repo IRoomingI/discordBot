@@ -1,11 +1,9 @@
 import asyncio
-from logger import log
+from utils import log, stringify
 
 
 async def ex(args, message, client, invoke):
-    out = ""
-    for word in args:
-        out += word + " "
+    out = stringify(args)
     prev_msg = await client.send_message(message.channel, out[0])
     await client.delete_message(message)
     prev_cont = prev_msg.content

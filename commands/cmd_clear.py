@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from logger import log
+from utils import log
 
 
 async def ex(args, message, client, invoke):

@@ -1,6 +1,6 @@
 import discord
 import CONFIG
-from logger import log
+from utils import log
 import asyncio
 
 colorList = ["red", "green", "blue", "orange", "purple"]
