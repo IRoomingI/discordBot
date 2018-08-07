@@ -1,4 +1,5 @@
 import CONFIG
+from logger import log
 
 
 async def ex(args, message, client, invoke):
@@ -17,3 +18,4 @@ async def ex(args, message, client, invoke):
     msg += "\n------------```"
     await client.delete_message(message)
     await client.send_message(message.channel, msg)
+    log("Successfully sent help text", "info")

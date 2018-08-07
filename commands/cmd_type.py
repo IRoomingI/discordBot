@@ -1,4 +1,5 @@
 import asyncio
+from logger import log
 
 
 async def ex(args, message, client, invoke):
@@ -13,3 +14,4 @@ async def ex(args, message, client, invoke):
         new_cont = prev_cont + out[letter]
         await client.edit_message(prev_msg, new_content=new_cont)
         prev_cont = new_cont
+    log("Successfully typed: '%s'" % out, "info")
