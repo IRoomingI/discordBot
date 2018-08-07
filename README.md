@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/IRoomingI/discordBot.svg?branch=master)](https://travis-ci.org/IRoomingI/discordBot)
+
 ## Discord Bot
 
 This is a bot written in Python with help of the [discord.py API](https://github.com/Rapptz/discord.py "discord.py Github Page").
