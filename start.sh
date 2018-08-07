@@ -1,1 +1,1 @@
-screen -S alexa python3 main.py
+screen -S discordBot python3 main.py
