@@ -23,7 +23,8 @@ commands = {
 @client.event
 async def on_ready():
 
-    log("%s started successfully. Running on server(s):" % client.user.name, "info")
+    log("%s started successfully. Running on server(s):" %
+        client.user.name, "info")
     for s in client.servers:
         log("  - %s (%s)" % (s.name, s.id), "")
 
