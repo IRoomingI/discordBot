@@ -1,5 +1,5 @@
 from colorama import Fore, init
-color.init()
+init()
 
 def log(message, logtype):
     if logtype == "error":
