@@ -10,6 +10,8 @@ Packages you need to run the bot:
 *   discord.py package for Python (look at [discord.py](https://github.com/Rapptz/discord.py "discord.py Github Page") GitHub for installation info)
 *   asyncio package for Python
     `python3 -m pip install -U asyncio`
+*   colorama package for Python (colored commandline output)
+    `python3 -m pip install -U colorama`
 
 
 ## Please Read:
