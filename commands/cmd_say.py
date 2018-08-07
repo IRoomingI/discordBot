@@ -1,6 +1,7 @@
 import discord
 from utils import log, stringify
 
+
 async def ex(args, message, client, invoke):
     out = stringify(args)
     await client.delete_message(message)

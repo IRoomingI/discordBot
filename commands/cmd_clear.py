@@ -9,7 +9,7 @@ async def ex(args, message, client, invoke):
     if author != channel:
         try:
             ammount = int(args[0]) + 1 if len(args) > 0 else 2
-        except:
+        except():
             await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(), description="Please enter another value than '%s'" % ammount))
             log("Could not clear message(s)! Wrong value: '%s'" % args, "error")
             return

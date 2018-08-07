@@ -1,7 +1,8 @@
 from colorama import Fore, init
+init()      # Colorama init
+
 
 # Logger
-init()
 def log(message, logtype):
     if logtype == "error":
         pref = "[ " + Fore.RED + logtype.upper() + Fore.RESET + " ]"
@@ -20,5 +21,3 @@ def stringify(input):
         out += word + " "
     out = out[:-1]
     return out
-    
-

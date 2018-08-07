@@ -33,7 +33,7 @@ async def ex(args, message, client, invoke):
                 msg += element + ", default"
 
         await client.send_message(message.channel, msg)
-        
+
     elif args == "default" or args == "clear":
         roles = getOldRoles(message)
         if len(roles) > 0:
@@ -54,9 +54,10 @@ async def ex(args, message, client, invoke):
         else:
             log("Couldn't change to color: '%s'" % args, "error")
             if len(args) > 0:
-                await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(),
-                                          description=("This color doesn't exist: *%s*. Type %scolor help" % (args, CONFIG.PREFIX))))
+                await client.send_message(message.channel, embed=discord.Embed(
+                    color=discord.Color.red(),
+                    description=("This color doesn't exist: *%s*. Type %scolor help" % (args, CONFIG.PREFIX))))
             else:
-                await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.red(),
-                                          description=("Type *%scolor help* to show all colors" % CONFIG.PREFIX)))
-        
+                await client.send_message(message.channel, embed=discord.Embed(
+                    color=discord.Color.red(),
+                    description=("Type *%scolor help* to show all colors" % CONFIG.PREFIX)))
