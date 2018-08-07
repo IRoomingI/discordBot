@@ -16,7 +16,7 @@ def log(message, logtype):
 # List to string / sentence
 def stringify(input):
     out = ""
-    for word in args:
+    for word in input:
         out += word + " "
     out = out[:-1]
     return out
