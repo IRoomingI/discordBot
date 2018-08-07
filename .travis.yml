@@ -9,4 +9,4 @@ install:
   - pip install asyncio
   - pip install discord.py
 
-script: pytest
+script: python main.py
