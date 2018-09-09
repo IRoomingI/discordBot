@@ -74,7 +74,7 @@ def getPrefix():
     return config["PREFIX"]
 
 
-def setPrefix(pref, channel, userid, client):
+async def setPrefix(pref, channel, userid, client):
     if userid is config["OWNER_ID"]:
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref

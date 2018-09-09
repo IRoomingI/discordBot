@@ -19,7 +19,7 @@ def getOldRoles(message):
     return out
 
 
-def colorHelp(chan):
+async def colorHelp(chan):
     msg = "All colors: "
     for element in colorList:
         if element is not colorList[-1]:
