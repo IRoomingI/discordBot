@@ -40,9 +40,17 @@ async def log(message, logtype, chat=False, chan=None, client=None):
     print(output)
 
     if chat:
+        #await send_chat(client, col, chan, message)
         return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
         await asyncio.sleep(2.5)
-        await client.delete_message(return_msg)
+        await client.delete_message(return_msg) 
+
+
+async def send_chat(client, col, chan, message):
+    # return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
+    # await asyncio.sleep(2.5)
+    # await client.delete_message(return_msg)
+    pass
 
 
 # List to string / sentence
@@ -71,11 +79,11 @@ def setPrefix(pref, channel, userid, client):
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insertConfig(config)
-            log("Successfully changed prefix to: %s" % pref, "info")  
+            await log("Successfully changed prefix to: %s" % pref, "info")  
         else:
-            log("Not a string or longer than 8 characters", "error", chat=True, chan=channel)
+            await log("Not a string or longer than 8 characters", "error", chat=True, chan=channel)
     else:
-        log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
+        await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 
 
 def getGame():

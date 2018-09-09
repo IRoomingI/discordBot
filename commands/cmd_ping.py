@@ -7,4 +7,4 @@ async def ex(args, message, client, invoke):
     if len(args) > 0:
         args_out = "\n\nAttached arguments: %s" % args
     await client.send_message(message.author, "Pong!" + args_out)
-    log("Successfully pinged Member: '%s'" % message.author.name, "info")
+    await log("Successfully pinged Member: '%s'" % message.author.name, "info")

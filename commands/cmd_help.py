@@ -1,8 +1,9 @@
 from utils import log, getPrefix
+import discord
 
 
 async def ex(args, message, client, invoke):
-    msg = "```--- Help ---\n\n"
+    msg = "--- Help ---\n\n"
     cmds = {
         "clear": ["number", "Remove multiple messages at once. Limit: 99 messages, Can't be older than 14 days."],
         "ping": ["", "Get a DM from the Bot saying 'Pong!'."],
@@ -14,8 +15,8 @@ async def ex(args, message, client, invoke):
     }
 
     for key in cmds:
-        msg += "    " + getPrefix() + key +" "+ cmds[key][0] +" "+ cmds[key][1] + "\n"
-    msg += "\n------------```"
+        msg += "    " + getPrefix() + key +" ["+ cmds[key][0] +"] *"+ cmds[key][1] + "* \n"
+    msg += "\n------------"
     await client.delete_message(message)
-    await client.send_message(message.channel, msg)
-    log("Successfully sent help text", "info")
+    await client.send_message(message.cahnnel, embed=discord.Embed(color=discord.Color.green(), description=msg))
+    await log("Successfully sent help text", "info")

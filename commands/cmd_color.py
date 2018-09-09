@@ -27,7 +27,7 @@ def colorHelp(chan):
         else:
             msg += element + ", default"
 
-    log(msg, "info", chat=True, chan=chan)
+    await log(msg, "info", chat=True, chan=chan)
 
 async def ex(args, message, client, invoke):
     roles = message.server.roles
@@ -39,7 +39,7 @@ async def ex(args, message, client, invoke):
         if len(roles) > 0:
             for r in roles:
                 await client.remove_roles(message.author, r)
-        log("Successfully cleared color!", "info")
+        await log("Successfully cleared color!", "info")
     else:
         oldrole = getOldRoles(message)
         role = getNewRole(roles, args)
@@ -50,9 +50,9 @@ async def ex(args, message, client, invoke):
                     await client.remove_roles(message.author, r)
             await asyncio.sleep(0.5)
             await client.add_roles(message.author, role)
-            log("Successfully changed to color: '%s'" % args, "info")
+            await log("Successfully changed to color: '%s'" % args, "info")
         else:
             if len(args) > 0:
-                log("Couldn't change to color because it doesn't exist: '%s'" % args, "error", chat=True, chan=message.channel)
+                await log("Couldn't change to color because it doesn't exist: '%s'" % args, "error", chat=True, chan=message.channel)
             else:
                 colorHelp(message.channel)
