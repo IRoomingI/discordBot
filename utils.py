@@ -1,5 +1,6 @@
 from colorama import Fore, init
 import json
+import discord
 
 
 # Colorama init
@@ -22,6 +23,8 @@ def insertConfig(newconf):
 
 
 # Logger
+
+client = discord.Client()
 
 def log(message, logtype, chat=False, chan=None):
     if logtype == "error":
