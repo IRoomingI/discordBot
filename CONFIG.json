@@ -1,0 +1,6 @@
+{
+    "TOKEN" : "BOT_TOKEN_HERE",
+    "PREFIX" : "+",
+    "OWNER_ID": "YOUR_USER_ID_HERE",
+    "GAME" : "hmm :thinking: ..."
+}

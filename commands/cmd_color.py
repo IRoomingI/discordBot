@@ -1,6 +1,5 @@
 import discord
-import CONFIG
-from utils import log
+from utils import log, getPrefix
 import asyncio
 
 colorList = ["red", "green", "blue", "orange", "purple"]
@@ -20,20 +19,21 @@ def getOldRoles(message):
     return out
 
 
+def colorHelp():
+    msg = "All colors: "
+    for element in colorList:
+        if element is not colorList[-1]:
+            msg += element + ", "
+        else:
+            msg += element + ", default"
+
+    log(msg, "info", chat=True, channel=message.channel)
+
 async def ex(args, message, client, invoke):
     roles = message.server.roles
-    args = args.__str__()[1:-1].replace("'", "")
-    args = args.__str__().replace(",", "")
+    args = args[0]
     if args == "help":
-        msg = "All colors: "
-        for element in colorList:
-            if element is not colorList[-1]:
-                msg += element + ", "
-            else:
-                msg += element + ", default"
-
-        await client.send_message(message.channel, msg)
-
+        colorHelp()
     elif args == "default" or args == "clear":
         roles = getOldRoles(message)
         if len(roles) > 0:
@@ -52,12 +52,7 @@ async def ex(args, message, client, invoke):
             await client.add_roles(message.author, role)
             log("Successfully changed to color: '%s'" % args, "info")
         else:
-            log("Couldn't change to color: '%s'" % args, "error")
             if len(args) > 0:
-                await client.send_message(message.channel, embed=discord.Embed(
-                    color=discord.Color.red(),
-                    description=("This color doesn't exist: *%s*. Type %scolor help" % (args, CONFIG.PREFIX))))
+                log("Couldn't change to color because it doesn't exist: '%s'" % args, "error", chat=True, channel=message.channel)
             else:
-                await client.send_message(message.channel, embed=discord.Embed(
-                    color=discord.Color.red(),
-                    description=("Type *%scolor help* to show all colors" % CONFIG.PREFIX)))
+                colorHelp()
