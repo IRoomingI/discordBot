@@ -1,6 +1,5 @@
 from colorama import Fore, init
 import json
-import discord
 
 
 # Colorama init
@@ -24,9 +23,7 @@ def insertConfig(newconf):
 
 # Logger
 
-client = discord.Client()
-
-def log(message, logtype, chat=False, chan=None):
+def log(message, logtype, chat=False, chan=None, client=None):
     if logtype == "error":
         pref = "[ " + Fore.RED + logtype.upper() + Fore.RESET + " ]"
         col = discord.Color.red()
@@ -68,7 +65,7 @@ def getPrefix():
     return config["PREFIX"]
 
 
-def setPrefix(pref, channel, userid):
+def setPrefix(pref, channel, userid, client):
     if userid is config["OWNER_ID"]
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
@@ -77,7 +74,7 @@ def setPrefix(pref, channel, userid):
         else:
             log("Not a string or longer than 8 characters", "error", chat=True, chan=channel)
     else:
-        log("Failed because the user isn't the owner.", "error", chat=True, chan=channel)
+        log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 
 
 def getGame():
