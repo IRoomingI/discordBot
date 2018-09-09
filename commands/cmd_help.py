@@ -18,5 +18,5 @@ async def ex(args, message, client, invoke):
         msg += "    " + getPrefix() + key +" ["+ cmds[key][0] +"] *"+ cmds[key][1] + "* \n"
     msg += "\n------------"
     await client.delete_message(message)
-    await client.send_message(message.cahnnel, embed=discord.Embed(color=discord.Color.green(), description=msg))
+    await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description=msg))
     await log("Successfully sent help text", "info")
