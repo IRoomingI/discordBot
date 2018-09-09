@@ -1,4 +1,6 @@
 from colorama import Fore, init
+import discord
+import asyncio
 import json
 
 
@@ -8,12 +10,13 @@ init()
 
 # Load config
 
-config = None
-
 def loadConfig():
     config_file = open("CONFIG.json", "r", encoding="utf-8")
     config = json.load(config_file)
     config_file.close()
+    return config
+
+config = loadConfig()
 
 def insertConfig(newconf):
     config_file = open("CONFIG.json", "w", encoding="utf-8")
@@ -23,7 +26,7 @@ def insertConfig(newconf):
 
 # Logger
 
-def log(message, logtype, chat=False, chan=None, client=None):
+async def log(message, logtype, chat=False, chan=None, client=None):
     if logtype == "error":
         pref = "[ " + Fore.RED + logtype.upper() + Fore.RESET + " ]"
         col = discord.Color.red()
@@ -46,7 +49,7 @@ def log(message, logtype, chat=False, chan=None, client=None):
 
 def stringify(input):
     out = ""
-    if len(args) > 0:
+    if len(input) > 0:
         for word in input:
             out += word + " "
         out = out[:-1]
@@ -54,8 +57,6 @@ def stringify(input):
 
 
 # Config getters and setters
-
-loadConfig()
 
 def getToken():
     return config["TOKEN"]
@@ -66,11 +67,11 @@ def getPrefix():
 
 
 def setPrefix(pref, channel, userid, client):
-    if userid is config["OWNER_ID"]
+    if userid is config["OWNER_ID"]:
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insertConfig(config)
-            log("Successfully changed prefix to: %s" % pref)  
+            log("Successfully changed prefix to: %s" % pref, "info")  
         else:
             log("Not a string or longer than 8 characters", "error", chat=True, chan=channel)
     else:
@@ -78,7 +79,7 @@ def setPrefix(pref, channel, userid, client):
 
 
 def getGame():
-    return config("GAME"):
+    return config["GAME"]
 
 
 def setGame(newgame):

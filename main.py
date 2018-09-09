@@ -1,7 +1,7 @@
 import discord
 from discord import Game, Embed, Color
-from commands import cmd_ping, cmd_clear, cmd_type, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix
 import utils
+from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix
 
 client = discord.Client()
 
