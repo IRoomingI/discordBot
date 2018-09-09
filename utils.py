@@ -40,17 +40,9 @@ async def log(message, logtype, chat=False, chan=None, client=None):
     print(output)
 
     if chat:
-        #await send_chat(client, col, chan, message)
         return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
         await asyncio.sleep(2.5)
         await client.delete_message(return_msg) 
-
-
-async def send_chat(client, col, chan, message):
-    # return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
-    # await asyncio.sleep(2.5)
-    # await client.delete_message(return_msg)
-    pass
 
 
 # List to string / sentence
