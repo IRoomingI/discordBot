@@ -22,8 +22,13 @@ This is project was started for fun and I can't promise frequent updates.
 ## Installation
 
 *   Clone or Download this repository to any place (I recommend a place you'll remember ;D)
-*   Enter the folder and add your Discord Bot Token to the _CONFIG.json_
-    `"TOKEN" : "0123456789abcdefg"` (example Token)
+*   Enter the folder and configure the _CONFIG.json_ <br>
+    ```
+    "TOKEN" : "0123456789abcdefg"   (example Token)
+    "PREFIX" : "COMMAND_PREFIX"     (default is "+")
+    "OWNER_ID" : "22234234354326"   (your discord user id)
+    "GAME" : "a game"               (game that the bot plays) 
+    ``` 
 *   Execute the _main.py_ 
     `python3 main.py`
 *   **or** use the _start.sh_ if you are on Linux `sh start.sh` (make sure you are in the same folder and have _screen_ installed)
