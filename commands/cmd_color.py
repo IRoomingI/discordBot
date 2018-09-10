@@ -19,7 +19,7 @@ def getOldRoles(message):
     return out
 
 
-async def colorHelp(chan):
+async def colorHelp(chan, client):
     msg = "All colors: "
     for element in colorList:
         if element is not colorList[-1]:
@@ -27,13 +27,13 @@ async def colorHelp(chan):
         else:
             msg += element + ", default"
 
-    await log(msg, "info", chat=True, chan=chan)
+    await log(msg, "info", chat=True, chan=chan, client=client, delete=False)
 
 async def ex(args, message, client, invoke):
     roles = message.server.roles
-    args = args[0]
+    args = args[0] if len(args) > 0 else "help"
     if args == "help":
-        colorHelp(message.channel)
+        await colorHelp(message.channel, client)
     elif args == "default" or args == "clear":
         roles = getOldRoles(message)
         if len(roles) > 0:
@@ -53,6 +53,6 @@ async def ex(args, message, client, invoke):
             await log("Successfully changed to color: '%s'" % args, "info")
         else:
             if len(args) > 0:
-                await log("Couldn't change to color because it doesn't exist: '%s'" % args, "error", chat=True, chan=message.channel)
+                await log("Couldn't change to color because it doesn't exist: '%s'" % args, "error", chat=True, chan=message.channel, client=client)
             else:
-                colorHelp(message.channel)
+                await colorHelp(message.channel, client)

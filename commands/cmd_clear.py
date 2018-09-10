@@ -20,7 +20,7 @@ async def ex(args, message, client, invoke):
 
         await client.delete_messages(messages)
 
-        return_msg = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description="Cleared %s message(s)." % ammount -1))
+        return_msg = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description="Cleared %s message(s)." % int(ammount) -1))
         await asyncio.sleep(3)
         await client.delete_message(return_msg)
     else:

@@ -26,7 +26,7 @@ def insertConfig(newconf):
 
 # Logger
 
-async def log(message, logtype, chat=False, chan=None, client=None):
+async def log(message, logtype, chat=False, chan=None, client=None, delete=True):
     if logtype == "error":
         pref = "[ " + Fore.RED + logtype.upper() + Fore.RESET + " ]"
         col = discord.Color.red()
@@ -41,8 +41,9 @@ async def log(message, logtype, chat=False, chan=None, client=None):
 
     if chat:
         return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
-        await asyncio.sleep(2.5)
-        await client.delete_message(return_msg) 
+        if delete:
+            await asyncio.sleep(2.5)
+            await client.delete_message(return_msg) 
 
 
 # List to string / sentence
@@ -71,9 +72,9 @@ async def setPrefix(pref, channel, userid, client):
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insertConfig(config)
-            await log("Successfully changed prefix to: %s" % pref, "info")  
+            await log("Successfully changed prefix to: %s" % pref, "info", chat=True, chan=channel, client=client)  
         else:
-            await log("Not a string or longer than 8 characters", "error", chat=True, chan=channel)
+            await log("Not a string or longer than 8 characters", "error", chat=True, chan=channel, client=client)
     else:
         await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 
