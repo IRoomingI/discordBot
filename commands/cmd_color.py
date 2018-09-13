@@ -32,6 +32,7 @@ async def colorHelp(chan, client):
 async def ex(args, message, client, invoke):
     roles = message.server.roles
     args = args[0] if len(args) > 0 else "help"
+    args = args.lower()
     if args == "help":
         await colorHelp(message.channel, client)
     elif args == "default" or args == "clear":

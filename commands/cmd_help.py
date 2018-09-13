@@ -18,8 +18,7 @@ async def ex(args, message, client, invoke):
     msg = "```--- Help ---\n\n"
     msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
     for key in cmds:
-        msg += "\t" + getPrefix() + key + "  " + "["+ cmds[key][0] +"]  '"+cmds[key][1]+"' \n"
+        msg += "\t" + getPrefix() + key + "  " + "["+ cmds[key][0] +"]  »"+cmds[key][1]+"« \n"
     msg += "\n------------```"
-    await client.delete_message(message)
     await client.send_message(message.channel, msg)
     await log("Successfully sent help text", "info")

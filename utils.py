@@ -10,8 +10,13 @@ init()
 
 # Load config
 
+mode = "production"
+
 def loadConfig():
-    config_file = open("CONFIG.json", "r", encoding="utf-8")
+    if mode == "dev":
+        config_file = open("devconf.json", "r", encoding="utf-8")
+    else:
+        config_file = open("CONFIG.json", "r", encoding="utf-8")
     config = json.load(config_file)
     config_file.close()
     return config
@@ -19,7 +24,10 @@ def loadConfig():
 config = loadConfig()
 
 def insertConfig(newconf):
-    config_file = open("CONFIG.json", "w", encoding="utf-8")
+    if mode == "dev":
+        config_file = open("devconf.json", "w", encoding="utf-8")
+    else:
+        config_file = open("CONFIG.json", "w", encoding="utf-8")
     json.dump(newconf, config_file, ensure_ascii=False, indent=4)
     config_file.close()
 
