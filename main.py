@@ -1,7 +1,7 @@
 import discord
 from discord import Game, Embed, Color
 import utils
-from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix
+from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick
 
 client = discord.Client()
 
@@ -13,7 +13,8 @@ commands = {
     "help": cmd_help,
     "color": cmd_color,
     "game": cmd_game,
-    "prefix": cmd_prefix
+    "prefix": cmd_prefix,
+    "nick": cmd_nick
 
 }
 

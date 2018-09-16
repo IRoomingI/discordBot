@@ -10,7 +10,8 @@ cmds = {
         "help": ["", "Show the help text."],
         "color": ["color name", "Set your displayed name color. Type 'color help' to show supported colors."],
         "game": ["text", "Change the game that the bot is currently playing."],
-        "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."]
+        "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
+        "nick": ["text", "Change your nick name. (Can't change the owners nickname)."]
 }
 
 

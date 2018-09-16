@@ -17,7 +17,10 @@ async def ex(args, message, client, invoke):
         async for m in client.logs_from(message.channel, limit=ammount):
             messages.append(m)
 
-        await client.delete_messages(messages)
+        try:
+            await client.delete_messages(messages)
+        except():
+            await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client, delete=True)
 
         await log("Cleared %s messages" % ammount, "info", chat=True, chan=message.channel, client=client, delete=True)
     else:

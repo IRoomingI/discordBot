@@ -75,6 +75,10 @@ def getPrefix():
     return config["PREFIX"]
 
 
+def getOwner():
+    return config["OWNER_ID"]
+
+
 async def setPrefix(pref, channel, userid, client):
     if str(userid) == config["OWNER_ID"]:
         if isinstance(pref, str) and len(pref) <= 8:
