@@ -22,7 +22,7 @@ async def ex(args, message, client, invoke):
         except():
             await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client, delete=True)
 
-        await log("Cleared %s messages" % (int(ammount) - 1 if int(ammount) <= 2 else 0), "info", chat=True, chan=message.channel, client=client, delete=True)
+        await log("Cleared %s messages" % (int(ammount) - 1 if int(ammount) <= 2 else ammount), "info", chat=True, chan=message.channel, client=client, delete=True)
     else:
         await log("Can't delete direct messages!", "error", chat=True, chan=message.author, client=client)
 
