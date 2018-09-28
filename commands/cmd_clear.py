@@ -10,7 +10,7 @@ async def ex(args, message, client, invoke):
         try:
             ammount = int(args[0]) if len(args) > 0 else 2
         except():
-            await log("Could not clear message(s)! Wrong value: '%s'" % args, "error", chat=True, chan=message.channel, client=client, delete=True)
+            await log("Could not clear message(s)! Wrong value: '%s'" % args, "error", chat=True, chan=message.channel, client=client)
             return
 
         messages = []
@@ -19,10 +19,10 @@ async def ex(args, message, client, invoke):
 
         try:
             await client.delete_messages(messages)
-        except():
-            await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client, delete=True)
+        except discord.HTTPException:
+            await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client)
 
-        await log("Cleared %s messages" % (int(ammount) - 1 if int(ammount) <= 2 else ammount), "info", chat=True, chan=message.channel, client=client, delete=True)
+        await log("Cleared %s messages" % (int(ammount) - 1 if int(ammount) <= 2 else ammount), "info", chat=True, chan=message.channel, client=client)
     else:
         await log("Can't delete direct messages!", "error", chat=True, chan=message.author, client=client)
 

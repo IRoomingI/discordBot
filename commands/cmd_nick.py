@@ -9,12 +9,12 @@ async def ex(args, message, client, invoke):
                 await client.change_nickname(message.author, nick)
                 await log("Changed %s's nickname to %s" % (message.author.name, nick), "info")
             else:
-                await log("Can't change the nick of the guilds owner", "error", chat=True, chan=message.channel, client=client, delete=True)
+                await log("Can't change the nick of the guilds owner", "error", chat=True, chan=message.channel, client=client)
         else:
             if message.author.id != getOwner():
                 await client.change_nickname(message.author, None)
                 await log("Reset %s's nickname" % message.author.name, "info")
             else:
-                await log("Can't change the nick of the guilds owner", "error", chat=True, chan=message.channel, client=client, delete=True)
+                await log("Can't change the nick of the guilds owner", "error", chat=True, chan=message.channel, client=client)
     else:
-        await log("No nickname entered", "error", chat=True, chan=message.channel, client=client, delete=True)
+        await log("No nickname entered", "error", chat=True, chan=message.channel, client=client)
