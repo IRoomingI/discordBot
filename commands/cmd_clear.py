@@ -8,8 +8,8 @@ async def ex(args, message, client, invoke):
     channel = message.channel.__str__()[20:]
     if author != channel:
         try:
-            ammount = int(args[0]) if len(args) > 0 else 2
-        except():
+            ammount = int(args[0]) if len(args) > 0 and int(args[0]) >= 2 else 2
+        except ValueError:
             await log("Could not clear message(s)! Wrong value: '%s'" % args, "error", chat=True, chan=message.channel, client=client)
             return
 
