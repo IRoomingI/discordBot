@@ -19,8 +19,6 @@ async def ex(args, message, client, invoke):
 
         try:
             await client.delete_messages(messages)
-            await asyncio.sleep(1)
-            await log("Cleared %s messages" % (int(ammount) - 1 if int(ammount) <= 2 else ammount), "info", chat=True, chan=message.channel, client=client)
         except discord.HTTPException:
             await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client)
     else:
