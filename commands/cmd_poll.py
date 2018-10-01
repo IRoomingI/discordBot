@@ -107,7 +107,7 @@ def changeMessage(content, change_by, option_number, poll_id):
                 end = content.find(key) + len(key) + 6
             newnum = int("".join(newmsg[start:end])) + change_by
             if newnum >= 0:
-                newnum = "*" + str(newnum) + "*"
+                newnum = str(newnum)
                 if openPolls[poll_id]["options"][key] == 9:
                     newmsg.insert(end, "\n")
                 elif openPolls[poll_id]["options"][key] == 99:
