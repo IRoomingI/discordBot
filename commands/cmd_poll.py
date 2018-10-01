@@ -43,7 +43,7 @@ async def ex(args, message, client, invoke):
             out = "Vote With Reactions:`(id:%s)` \n" % poll_id + openPolls[poll_id]["description"] + "\n\n`Options`\n"
             num = 1
             for key in openPolls[poll_id]["options"]:
-                out += unicodeEmojis[num] + "  " + key + " : " + str(openPolls[poll_id]["options"][key]) + "\n"
+                out += unicodeEmojis[num] + "  " + key + " : **" + str(openPolls[poll_id]["options"][key]) + "**\n"
                 num += 1
             poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description=out))
             uni = 1
@@ -98,13 +98,13 @@ def changeMessage(content, change_by, option_number, poll_id):
     for key in openPolls[poll_id]["options"]:
         if num == option_number:
             newmsg = list(content)
-            start = content.find(key) + len(key) + 3
+            start = content.find(key) + len(key) + 5
             if openPolls[poll_id]["options"][key] < 9:
-                end = content.find(key) + len(key) + 4
-            elif openPolls[poll_id]["options"][key] < 99:
-                end = content.find(key) + len(key) + 5
-            else:
                 end = content.find(key) + len(key) + 6
+            elif openPolls[poll_id]["options"][key] < 99:
+                end = content.find(key) + len(key) + 7
+            else:
+                end = content.find(key) + len(key) + 8
             newnum = int("".join(newmsg[start:end])) + change_by
             if newnum >= 0:
                 newnum = str(newnum)
