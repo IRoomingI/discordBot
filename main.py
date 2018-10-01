@@ -1,7 +1,7 @@
 import discord
 from discord import Game, Embed, Color
 import utils
-from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick
+from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick, cmd_poll
 
 client = discord.Client()
 
@@ -14,7 +14,8 @@ commands = {
     "color": cmd_color,
     "game": cmd_game,
     "prefix": cmd_prefix,
-    "nick": cmd_nick
+    "nick": cmd_nick,
+    "poll": cmd_poll
 
 }
 
@@ -36,12 +37,19 @@ async def on_message(message):
         invoke = message.content[len(utils.getPrefix()):].split(" ")[0]
         args = message.content.split(" ")[1:]
         if commands.__contains__(invoke):
-            await client.delete_message(message)
-            await utils.log("Executing command %s" % invoke, "info")
+            if invoke != "clear": await client.delete_message(message)
+            await utils.log("%s is executing command %s" % (utils.color(message.author.name + " (%s)" % message.author.id, "white"), utils.color(invoke, "blue")), "info")
             await commands.get(invoke).ex(args, message, client, invoke)
         else:
             await client.delete_message(message)
             await utils.log("Command not found: %s" % invoke, "error", chat=True, chan=message.channel, client=client, delete=True)
+
+
+@client.event
+async def on_reaction_add(reaction, user):
+    message = reaction.message
+    if user.id != client.user.id and message.author.id == client.user.id:
+        await commands.get("poll").vote(message, user, client, reaction)
 
 
 client.run(utils.getToken())

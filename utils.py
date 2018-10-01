@@ -1,4 +1,4 @@
-from colorama import Fore, init
+from colorama import Fore, Style, Back, init
 import discord
 import asyncio
 import json
@@ -10,7 +10,7 @@ init()
 
 # Load config
 
-mode = "production"
+mode = "dev"
 
 def loadConfig():
     if mode == "dev":
@@ -35,11 +35,12 @@ def insertConfig(newconf):
 # Logger
 
 async def log(message, logtype, chat=False, chan=None, client=None, delete=True):
+    """Used for logging in terminal and if wanted also to the Discord channel."""
     if logtype == "error":
-        pref = "[ " + Fore.RED + logtype.upper() + Fore.RESET + " ]"
+        pref = "[ " + color(logtype.upper(), "red") + " ]"
         col = discord.Color.red()
     elif logtype == "info":
-        pref = "[ " + Fore.GREEN + logtype.upper() + Fore.RESET + " ]"
+        pref = "[ " + color(logtype.upper(), "green") + " ]"
         col = discord.Color.green()
     else:
         pref = ""
@@ -53,10 +54,29 @@ async def log(message, logtype, chat=False, chan=None, client=None, delete=True)
             await asyncio.sleep(2.5)
             await client.delete_message(return_msg) 
 
+def color(string, color):
+    """Choose a color for terminal output."""
+    if color == "red":
+        string = Fore.RED + string
+    elif color == "green":
+        string = Fore.GREEN + string
+    elif color == "blue":
+        string = Style.BRIGHT + Fore.BLUE + string
+    elif color == "white":
+        string = Fore.WHITE + string
+    elif color == "code":
+        string = Style.DIM + Fore.YELLOW + string
+    else:
+        print(Fore.RED + "Color %s not found" % color + Fore.RESET)
+        return string
+    string +=Style.RESET_ALL
+    return string
+
 
 # List to string / sentence
 
 def stringify(input):
+    """Convert list to sentence. Used for converting 'args' to a sentence."""
     out = ""
     if len(input) > 0:
         for word in input:
@@ -84,9 +104,9 @@ async def setPrefix(pref, channel, userid, client):
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insertConfig(config)
-            await log("Successfully changed prefix to: %s" % pref, "info", chat=True, chan=channel, client=client)  
+            await log("Successfully changed prefix to: %s" % color(pref, "white"), "info", chat=True, chan=channel, client=client, delete=False)  
         else:
-            await log("Not a string or longer than 8 characters", "error", chat=True, chan=channel, client=client)
+            await log("Longer than 8 characters", "error", chat=True, chan=channel, client=client)
     else:
         await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 

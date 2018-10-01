@@ -11,15 +11,16 @@ cmds = {
         "color": ["color name", "Set your displayed name color. Type 'color help' to show supported colors."],
         "game": ["text", "Change the game that the bot is currently playing."],
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
-        "nick": ["text", "Change your nick name. (Can't change the owners nickname)."]
+        "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
+        "poll": ['poll_id "description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."]
 }
 
 
 async def ex(args, message, client, invoke):
     msg = "```--- Help ---\n\n"
     msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
-    for key in cmds:
-        msg += "\t" + getPrefix() + key + "  " + "["+ cmds[key][0] +"]  »"+cmds[key][1]+"« \n"
+    for key in sorted(cmds):
+        msg += "\t" + getPrefix() + key + "  " + "<"+ cmds[key][0] +">  »"+cmds[key][1]+"« \n"
     msg += "\n------------```"
     await client.send_message(message.channel, msg)
     await log("Successfully sent help text", "info")
