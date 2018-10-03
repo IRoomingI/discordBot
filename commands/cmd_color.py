@@ -40,7 +40,7 @@ async def ex(args, message, client, invoke):
         if len(roles) > 0:
             for r in roles:
                 await client.remove_roles(message.author, r)
-        await log("Successfully cleared color!", "info")
+        await log("Successfully cleared color.", "info")
     else:
         oldrole = getOldRoles(message)
         role = getNewRole(roles, args)

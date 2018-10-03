@@ -20,41 +20,62 @@ import asyncio
 #     }
 # }
 
+# pollMessages = {
+#     poll_id : message
+# }
+
 openPolls = {}
 usersVoted = {}
+pollMessages = {}
 unicodeEmojis = {1 :"\U00000031\U000020E3", 2 : "\U00000032\U000020E3", 3 : "\U00000033\U000020E3", 4 : "\U00000034\U000020E3", 5 : "\U00000035\U000020E3", 6 : "\U00000036\U000020E3"}
+closed = ["\U0001f1e8", "\U0001f1f1", "\U0001f1f4", "\U0001f1f8", "\U0001f1ea", "\U0001f1e9"]
 
 
 async def ex(args, message, client, invoke):
-    exists = False
-    try:
-        poll_id = args[0]
-    except IndexError:
-        await log("You have to enter the poll's id, description and options.", "error", chat=True, chan=message.channel, client=client)
-        return
-    for key in openPolls:
-        if poll_id == key:
-            await log("Poll with same name already exists. Please choose another one.", "error", chat=True, chan=message.channel, client=client)
-            exists = True
-    if not exists:
-        newentry = convert(args)
-        if len(newentry[poll_id]["options"]) <= 6 and len(newentry[poll_id]["options"]) > 1:
-            openPolls.update(newentry)
-            out = "Vote With Reactions:`(id:%s)` \n" % poll_id + openPolls[poll_id]["description"] + "\n\n`Options`\n"
-            num = 1
-            for key in openPolls[poll_id]["options"]:
-                out += unicodeEmojis[num] + "  " + key + " : **" + str(openPolls[poll_id]["options"][key]) + "**\n"
-                num += 1
-            poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description=out))
-            uni = 1
-            for key in openPolls[poll_id]["options"]:
-                await client.add_reaction(poll, unicodeEmojis[uni])
-                uni += 1
-        elif len(newentry[poll_id]["options"]) < 2:
-            await log("Can't create polls with less than two (2) options", "error", chat=True, chan=message.channel, client=client)
+    if invoke == "poll":
+        if len(args) > 0:
+            poll_id = args[0]
+            if not poll_id in openPolls:
+                newentry = convert(args)
+                if len(newentry[poll_id]["options"]) <= 6 and len(newentry[poll_id]["options"]) > 1:
+                    openPolls.update(newentry)
+                    out = "Vote With Reactions:`(id:%s)` \n" % poll_id + openPolls[poll_id]["description"] + "\n\n`Options`\n"
+                    num = 1
+                    for key in openPolls[poll_id]["options"]:
+                        out += unicodeEmojis[num] + "  " + key + " : **" + str(openPolls[poll_id]["options"][key]) + "**\n"
+                        num += 1
+                    poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description=out))
+                    pollMessages.update({poll_id:poll})
+                    for uni in range(1, len(openPolls[poll_id]["options"]) + 1):
+                        await client.add_reaction(poll, unicodeEmojis[uni])
+                    await log("Successfully created poll '%s'" % poll_id, "info")
+                elif len(newentry[poll_id]["options"]) < 2:
+                    await log("Can't create polls with less than two (2) options.", "error", chat=True, chan=message.channel, client=client)
+                else:
+                    await log("Can't create polls with more than six (6) options.", "error", chat=True, chan=message.channel, client=client)
+            else:
+                await log("Poll with same name already exists. Please choose another one.", "error", chat=True, chan=message.channel, client=client)
         else:
-            await log("Can't create polls with more than six (6) options", "error", chat=True, chan=message.channel, client=client)
-
+            await log("You need to enter the poll's id, description and options.", "error", chat=True, chan=message.channel, client=client)
+    else:
+        if len(args) > 0:
+            poll_id = args[0]
+            if poll_id in openPolls:
+                del openPolls[poll_id]
+                for user in usersVoted:
+                    if poll_id in usersVoted[user]:
+                        del usersVoted[user][poll_id]
+                message = pollMessages[poll_id]
+                await client.clear_reactions(message)
+                for e in range(len(closed)):
+                    await client.add_reaction(message, closed[e])
+                del pollMessages[poll_id]
+                await log("Successfully closed poll '%s'." % poll_id, "info", chat=True, chan=message.channel, client=client)
+            else:
+                await log("The poll you entered doesn't exist.", "error", chat=True, chan=message.channel, client=client)
+        else:
+            await log("You need to enter the poll's id you want to close.", "error", chat=True, chan=message.channel, client=client)
+        
 
 async def vote(message, user, client, reaction):
     try:

@@ -15,7 +15,9 @@ commands = {
     "game": cmd_game,
     "prefix": cmd_prefix,
     "nick": cmd_nick,
-    "poll": cmd_poll
+    "poll": cmd_poll,
+    "closepoll": cmd_poll,
+    "cpoll": cmd_poll
 
 }
 

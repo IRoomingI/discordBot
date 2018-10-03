@@ -106,7 +106,7 @@ async def setPrefix(pref, channel, userid, client):
             insertConfig(config)
             await log("Successfully changed prefix to: %s" % color(pref, "white"), "info", chat=True, chan=channel, client=client, delete=False)  
         else:
-            await log("Longer than 8 characters", "error", chat=True, chan=channel, client=client)
+            await log("Longer than 8 characters.", "error", chat=True, chan=channel, client=client)
     else:
         await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 

@@ -22,5 +22,5 @@ async def ex(args, message, client, invoke):
         except discord.HTTPException:
             await log("Can't delete messages older than 14 days.", "error", chat=True, chan=message.channel, client=client)
     else:
-        await log("Can't delete direct messages!", "error", chat=True, chan=message.author, client=client)
+        await log("Can't delete direct messages.", "error", chat=True, chan=message.author, client=client)
 

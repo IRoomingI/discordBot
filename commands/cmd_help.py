@@ -12,7 +12,8 @@ cmds = {
         "game": ["text", "Change the game that the bot is currently playing."],
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
         "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
-        "poll": ['poll_id "description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."]
+        "poll": ['poll_id "description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."],
+        "closepoll": ["poll_id", "Alias: 'cpoll'. Close a poll by it's id. You can't reopen it afterwards!"]
 }
 
 
@@ -23,4 +24,4 @@ async def ex(args, message, client, invoke):
         msg += "\t" + getPrefix() + key + "  " + "<"+ cmds[key][0] +">  »"+cmds[key][1]+"« \n"
     msg += "\n------------```"
     await client.send_message(message.channel, msg)
-    await log("Successfully sent help text", "info")
+    await log("Successfully sent help text.", "info")
