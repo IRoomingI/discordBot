@@ -1,5 +1,5 @@
 import discord
-from discord import Game, Embed, Color
+from discord import Game
 import utils
 from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick, cmd_poll
 
@@ -25,18 +25,17 @@ commands = {
 @client.event
 async def on_ready():
 
-    await utils.log("%s started successfully. Running on server(s):" %
-        client.user.name, "info")
+    await utils.log("%s started successfully. Running on server(s):" % client.user.name, "info")
     for s in client.servers:
         await utils.log("  - %s (%s)" % (s.name, s.id), "")
 
-    await client.change_presence(game=Game(name=utils.getGame()))
+    await client.change_presence(game=Game(name=utils.get_game()))
 
 
 @client.event
 async def on_message(message):
-    if message.content.startswith(utils.getPrefix()):
-        invoke = message.content[len(utils.getPrefix()):].split(" ")[0]
+    if message.content.startswith(utils.get_prefix()):
+        invoke = message.content[len(utils.get_prefix()):].split(" ")[0]
         args = message.content.split(" ")[1:]
         if commands.__contains__(invoke):
             if invoke != "clear": await client.delete_message(message)
@@ -54,4 +53,4 @@ async def on_reaction_add(reaction, user):
         await commands.get("poll").vote(message, user, client, reaction)
 
 
-client.run(utils.getToken())
+client.run(utils.get_token())

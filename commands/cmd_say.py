@@ -5,7 +5,7 @@ from utils import log, stringify, color
 async def ex(args, message, client, invoke):
     if len(args) > 0:
         out = stringify(args)
-        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description=(out)))
+        await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.green(), description=out))
         out = out.replace("\n", " / ")
         if out.startswith("`") and out.endswith("`"):
             if out.startswith("```") and out.endswith("```"):

@@ -1,4 +1,4 @@
-from colorama import Fore, Style, Back, init
+from colorama import Fore, Style, init
 import discord
 import asyncio
 import json
@@ -10,9 +10,10 @@ init()
 
 # Load config
 
-mode = "prod"
+mode = "dev"
 
-def loadConfig():
+
+def load_config():
     if mode == "dev":
         config_file = open("devconf.json", "r", encoding="utf-8")
     else:
@@ -21,9 +22,11 @@ def loadConfig():
     config_file.close()
     return config
 
-config = loadConfig()
 
-def insertConfig(newconf):
+config = load_config()
+
+
+def insert_config(newconf):
     if mode == "dev":
         config_file = open("devconf.json", "w", encoding="utf-8")
     else:
@@ -53,6 +56,7 @@ async def log(message, logtype, chat=False, chan=None, client=None, delete=True)
         if delete:
             await asyncio.sleep(2.5)
             await client.delete_message(return_msg) 
+
 
 def color(string, color):
     """Choose a color for terminal output."""
@@ -87,23 +91,23 @@ def stringify(input):
 
 # Config getters and setters
 
-def getToken():
+def get_token():
     return config["TOKEN"]
 
 
-def getPrefix():
+def get_prefix():
     return config["PREFIX"]
 
 
-def getOwner():
+def get_owner():
     return config["OWNER_ID"]
 
 
-async def setPrefix(pref, channel, userid, client):
+async def set_prefix(pref, channel, userid, client):
     if str(userid) == config["OWNER_ID"]:
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
-            insertConfig(config)
+            insert_config(config)
             await log("Successfully changed prefix to: %s" % color(pref, "white"), "info", chat=True, chan=channel, client=client, delete=False)  
         else:
             await log("Longer than 8 characters.", "error", chat=True, chan=channel, client=client)
@@ -111,10 +115,10 @@ async def setPrefix(pref, channel, userid, client):
         await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
 
 
-def getGame():
+def get_game():
     return config["GAME"]
 
 
-def setGame(newgame):
+def set_game(newgame):
     config["GAME"] = str(newgame)
-    insertConfig(config)
+    insert_config(config)

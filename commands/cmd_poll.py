@@ -1,6 +1,5 @@
-from utils import log, stringify, color
+from utils import log, stringify
 import discord
-import asyncio
 
 
 # openPolls = {
@@ -17,7 +16,7 @@ import asyncio
 
 
 openPolls = {}
-unicodeEmojis = {1 :"\U00000031\U000020E3", 2 : "\U00000032\U000020E3", 3 : "\U00000033\U000020E3", 4 : "\U00000034\U000020E3", 5 : "\U00000035\U000020E3", 6 : "\U00000036\U000020E3"}
+unicodeEmojis = {1: "\U00000031\U000020E3", 2: "\U00000032\U000020E3", 3: "\U00000033\U000020E3", 4: "\U00000034\U000020E3", 5: "\U00000035\U000020E3", 6: "\U00000036\U000020E3"}
 closed = ["\U0001f1e8", "\U0001f1f1", "\U0001f1f4", "\U0001f1f8", "\U0001f1ea", "\U0001f1e9"]
 
 
@@ -25,9 +24,9 @@ async def ex(args, message, client, invoke):
     if invoke == "poll":
         if len(args) > 0:
             poll_id = args[0]
-            if not poll_id in openPolls:
+            if poll_id not in openPolls:
                 newentry = convert(args)
-                if len(newentry[poll_id]["options"]) <= 6 and len(newentry[poll_id]["options"]) > 1:
+                if 6 >= len(newentry[poll_id]["options"]) > 1:
                     openPolls.update(newentry)
                     out = "Vote With Reactions:`(id:%s)` \n\n" % poll_id + "**" + openPolls[poll_id]["description"] + "**\n\n`Options`\n"
                     for key in openPolls[poll_id]["options"]:
@@ -58,7 +57,7 @@ async def ex(args, message, client, invoke):
         else:
             await log("You need to enter the poll's id you want to close.", "error", chat=True, chan=message.channel, client=client)
         del openPolls[poll_id]
-        
+
 
 async def vote(message, user, client, reaction):
     try:
@@ -70,11 +69,11 @@ async def vote(message, user, client, reaction):
         option_number = int(str(emoji)[2])
         if user.id in openPolls[poll_id]["voters"]:
             old_option_number = openPolls[poll_id]["voters"][user.id]
-            content = changeMessage(content, -1, old_option_number, poll_id)
+            content = change_message(content, -1, old_option_number, poll_id)
             del openPolls[poll_id]["voters"][user.id]
-            out = changeMessage(content, 1, option_number, poll_id)
+            out = change_message(content, 1, option_number, poll_id)
         else:
-            out = changeMessage(content, 1, option_number, poll_id)
+            out = change_message(content, 1, option_number, poll_id)
         openPolls[poll_id]["voters"].update({user.id : option_number})
         await client.edit_message(message, embed=discord.Embed(color=discord.Color.blue(), description=out))
         await client.remove_reaction(message, reaction.emoji, user)
@@ -82,7 +81,7 @@ async def vote(message, user, client, reaction):
         pass
 
 
-def changeMessage(content, change_by, option_number, poll_id):
+def change_message(content, change_by, option_number, poll_id):
     string = openPolls[poll_id]["options"][option_number]
     newmsg = list(content)
     start = content.find(string) + len(string) + 5
@@ -113,7 +112,6 @@ def changeMessage(content, change_by, option_number, poll_id):
     return newmsg
 
 
-
 def convert(args):
     poll_id = args[0]
     args.remove(args[0])
@@ -125,7 +123,6 @@ def convert(args):
     args.remove(args[0])
     description = stringify(temp)
     description = description.replace('"', "")
-    options = []
     temp = stringify(args)
     options = temp.split('"')
     for e in options:
@@ -133,11 +130,11 @@ def convert(args):
             options.remove(e)
     ndo = []
     for e in options:
-        if not e in ndo:
+        if e not in ndo:
             ndo.append(e)
     temp = {}
     for e in range(len(ndo)):
         temp[e + 1] = options[e]
 
-    out = {poll_id: {"description": description, "voters" : {}, "options":temp}}
+    out = {poll_id: {"description": description, "voters": {}, "options": temp}}
     return out

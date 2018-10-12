@@ -1,5 +1,4 @@
-from utils import log, getPrefix
-import discord
+from utils import log, get_prefix
 from datetime import datetime
 
 
@@ -13,7 +12,7 @@ cmds = {
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
         "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
         "poll": ['poll_id "description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."],
-        "closepoll": ["poll_id", "Alias: 'cpoll'. Close a poll by it's id. You can't reopen it afterwards!"]
+        "closepoll": ["poll_id", "Alias: 'cpoll'. Close a poll by its id. You can't reopen it afterwards!"]
 }
 
 
@@ -21,7 +20,7 @@ async def ex(args, message, client, invoke):
     msg = "```--- Help ---\n\n"
     msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
     for key in sorted(cmds):
-        msg += "\t" + getPrefix() + key + "  " + "<"+ cmds[key][0] +">  »"+cmds[key][1]+"« \n"
+        msg += "\t" + get_prefix() + key + "  " + "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
     msg += "\n------------```"
     await client.send_message(message.channel, msg)
     await log("Successfully sent help text.", "info")
