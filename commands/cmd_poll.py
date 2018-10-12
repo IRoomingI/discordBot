@@ -131,8 +131,12 @@ def convert(args):
     for e in options:
         if "[" in e or "," in e or "]" in e:
             options.remove(e)
+    ndo = []
+    for e in options:
+        if not e in ndo:
+            ndo.append(e)
     temp = {}
-    for e in range(len(options)):
+    for e in range(len(ndo)):
         temp[e + 1] = options[e]
 
     out = {poll_id: {"description": description, "voters" : {}, "options":temp}}
