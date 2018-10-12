@@ -69,7 +69,7 @@ def color(string, color):
     else:
         print(Fore.RED + "Color %s not found" % color + Fore.RESET)
         return string
-    string +=Style.RESET_ALL
+    string += Style.RESET_ALL
     return string
 
 
