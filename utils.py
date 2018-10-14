@@ -10,7 +10,7 @@ init()
 
 # Load config
 
-mode = "prod"
+mode = "dev"
 
 
 def load_config():
