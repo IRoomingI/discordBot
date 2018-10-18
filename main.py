@@ -51,4 +51,7 @@ async def on_reaction_add(reaction, user):
         await commands.get("poll").vote(message, user, client, reaction)
 
 
-client.run(utils.get_token())
+try:
+    client.run(utils.get_token())
+except discord.LoginFailure:
+    print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("config.json", "blue")))

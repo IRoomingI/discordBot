@@ -59,7 +59,7 @@ async def log(message, logtype, chat=False, chan=None, client=None, delete=True)
 
 
 def color(string, color):
-    """Choose a color for terminal output."""
+    """Choose a color for terminal output. Red, Green, Blue, White and 'Code'"""
     if color == "red":
         string = Fore.RED + string
     elif color == "green":
