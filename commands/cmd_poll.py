@@ -1,4 +1,4 @@
-from utils import log, stringify
+from utils import log
 import uuid
 import discord
 
@@ -115,9 +115,9 @@ def convert(args, poll_id):
         args.remove(args[0])
     temp.append(args[0])
     args.remove(args[0])
-    description = stringify(temp)
+    description = " ".join(temp)
     description = description.replace('"', "")
-    temp = stringify(args)
+    temp = " ".join(args)
     options = temp.split('"')
     for e in options:
         if "[" in e or "," in e or "]" in e:

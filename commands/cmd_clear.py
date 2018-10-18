@@ -1,5 +1,5 @@
 import discord
-from utils import log, stringify
+from utils import log
 
 
 async def ex(args, message, client, invoke):
@@ -9,7 +9,7 @@ async def ex(args, message, client, invoke):
         try:
             amount = int(args[0]) + 1 if len(args) > 0 and int(args[0]) >= 2 else 2
         except ValueError:
-            await log("Could not clear message(s)! Wrong value: '%s'" % stringify(args), "error", chat=True, chan=message.channel, client=client)
+            await log("Could not clear message(s)! Wrong value: '%s'" % " ".join(args), "error", chat=True, chan=message.channel, client=client)
             return
 
         messages = []

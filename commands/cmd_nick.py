@@ -1,10 +1,10 @@
-from utils import log, stringify, get_owner
+from utils import log, get_owner
 
 
 async def ex(args, message, client, invoke):
     if len(args) > 0:
         if args[0] != "remove" or args[0] != "clear":
-            nick = stringify(args)
+            nick = " ".join(args)
             if message.author.id != get_owner():
                 await client.change_nickname(message.author, nick)
                 await log("Changed %s's nickname to %s." % (message.author.name, nick), "info")

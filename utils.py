@@ -77,18 +77,6 @@ def color(string, color):
     return string
 
 
-# List to string / sentence
-
-def stringify(input):
-    """Convert list to sentence. Used for converting 'args' to a sentence."""
-    out = ""
-    if len(input) > 0:
-        for word in input:
-            out += word + " "
-        out = out[:-1]
-    return out
-
-
 # Config getters and setters
 
 def get_token():
