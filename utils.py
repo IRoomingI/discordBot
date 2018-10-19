@@ -49,7 +49,7 @@ async def log(message, logtype, chat=False, chan=None, client=None, delete=True)
         pref = ""
         col = discord.Color.blue()
     output = pref + "  " + message
-    print(output)
+    print(output.replace("*", ""))
 
     if chat:
         return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
@@ -89,6 +89,15 @@ def get_prefix():
 
 def get_owner():
     return config["OWNER_ID"]
+
+
+def get_colors():
+    return config["COLOR_ROLES"]
+
+
+def set_colors(roles):
+    config["COLOR_ROLES"] = roles
+    insert_config(config)
 
 
 async def set_prefix(pref, channel, userid, client):

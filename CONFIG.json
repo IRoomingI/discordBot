@@ -2,5 +2,8 @@
     "TOKEN": "BOT_TOKEN_HERE",
     "PREFIX": "+",
     "OWNER_ID": "DISCORD_USER_ID_HERE",
-    "GAME": "alone D:"
+    "GAME": "alone D:",
+    "COLOR_ROLES": {
+        "colorname": "ROLE_ID"
+    }
 }

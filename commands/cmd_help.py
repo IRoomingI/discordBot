@@ -7,7 +7,7 @@ cmds = {
         "ping": ["", "Get a DM from the Bot saying 'Pong!'."],
         "say": ["text", "Let the Bot say something."],
         "help": ["", "Show the help text."],
-        "color": ["color name", "Set your displayed name color. Type 'color help' to show supported colors."],
+        "color": ["color_name/clear/list/add", "Set your displayed name color or manage colors."],
         "game": ["text", "Change the game that the bot is currently playing."],
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
         "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
