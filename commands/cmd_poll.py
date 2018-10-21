@@ -1,6 +1,4 @@
-from utils import log
-import uuid
-import discord
+import discord, uuid, Logger
 
 
 # openPolls = {
@@ -37,15 +35,15 @@ async def ex(args, message, client, invoke):
                 openPolls[poll_id]["creator"] = message.author.id
                 for uni in openPolls[poll_id]["options"]:
                     await client.add_reaction(poll, unicodeEmojis[uni])
-                await log("Successfully created poll with uuid '%s'" % poll_id, "info")
+                await Logger.info("Successfully created poll with uuid '%s'" % poll_id)
             elif len(newentry[poll_id]["options"]) < 2:
-                await log("Can't create polls with less than two (2) options.", "error", chat=True, chan=message.channel, client=client)
+                await Logger.error("Can't create polls with less than two (2) options.", chat=True, chan=message.channel)
             else:
-                await log("Can't create polls with more than six (6) options.", "error", chat=True, chan=message.channel, client=client)
+                await Logger.error("Can't create polls with more than six (6) options.", chat=True, chan=message.channel)
         else:
-            await log("Poll with same name already exists. Please choose another one.", "error", chat=True, chan=message.channel, client=client)
+            await Logger.error("Poll with same name already exists. Please choose another one.", chat=True, chan=message.channel)
     else:
-        await log("You need to enter the poll's id, description and options.", "error", chat=True, chan=message.channel, client=client)
+        await Logger.error("You need to enter the poll's id, description and options.", chat=True, chan=message.channel)
             
 
 
@@ -77,7 +75,7 @@ async def close_poll(message, client):
     await client.clear_reactions(openPolls[poll_id]["message"])
     for e in range(len(closed)):
         await client.add_reaction(openPolls[poll_id]["message"], closed[e])
-    await log("Successfully closed poll '%s'." % poll_id, "info")
+    await Logger.info("Successfully closed poll '%s'." % poll_id)
 
 
 def change_message(content, poll_id):

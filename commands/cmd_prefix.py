@@ -1,8 +1,9 @@
-from utils import set_prefix, log
+import Logger
+from utils import set_prefix
 
 
 async def ex(args, message, client, invoke):
     if len(args) > 0:
-        await set_prefix(str(args[0]), message.channel, message.author.id, client=client)
+        await set_prefix(str(args[0]), message.channel, message.author.id, client)
     else:
-        await log("Couldn't change prefix. Please enter a value.", "error", chat=True, client=client, chan=message.channel)
+        await Logger.error("Couldn't change prefix. Please enter a value.", chat=True, chan=message.channel)

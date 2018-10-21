@@ -1,5 +1,4 @@
-from utils import log
-import discord
+import discord, Logger
 
 
 async def ex(args, message, client, invoke):
@@ -8,4 +7,4 @@ async def ex(args, message, client, invoke):
     if len(args) > 0:
         args_out = "\n\nAttached arguments: %s" % args
     await client.send_message(message.author, embed=discord.Embed(color=discord.Color.blue(), description="Pong!" + args_out))
-    await log("Successfully pinged Member: '%s'" % message.author.name, "info")
+    await Logger.info("Successfully pinged Member: '%s'" % message.author.name)

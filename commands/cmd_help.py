@@ -1,4 +1,5 @@
-from utils import log, get_prefix
+import Logger
+from utils import get_prefix
 from datetime import datetime
 
 
@@ -7,7 +8,7 @@ cmds = {
         "ping": ["", "Get a DM from the Bot saying 'Pong!'."],
         "say": ["text", "Let the Bot say something."],
         "help": ["", "Show the help text."],
-        "color": ["color_name/clear/list/add", "Set your displayed name color or manage colors."],
+        "color": ["color_name/clear/list/add/remove", "Set your displayed name color or manage colors."],
         "game": ["text", "Change the game that the bot is currently playing."],
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
         "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
@@ -22,4 +23,4 @@ async def ex(args, message, client, invoke):
         msg += "\t" + get_prefix() + key + "  " + "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
     msg += "\n------------```"
     await client.send_message(message.channel, msg)
-    await log("Successfully sent help text.", "info")
+    await Logger.info("Successfully sent help text.")

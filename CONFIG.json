@@ -3,5 +3,6 @@
     "PREFIX": "+",
     "OWNER_ID": "DISCORD_USER_ID_HERE",
     "GAME": "alone D:",
+    "AUTOROLE_IDS":[],
     "COLOR_ROLES": {}
 }

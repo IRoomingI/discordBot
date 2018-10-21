@@ -2,4 +2,5 @@
 .vscode
 __pycache__
 *.pyc
-devconf.json
+devCONFIG.json
+devdata.json

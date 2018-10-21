@@ -1,5 +1,5 @@
-import discord
-from utils import log, color
+import discord, Logger
+from utils import color
 
 
 async def ex(args, message, client, invoke):
@@ -10,11 +10,11 @@ async def ex(args, message, client, invoke):
         if out.startswith("`") and out.endswith("`"):
             if out.startswith("```") and out.endswith("```"):
                 out = out[3:-3]
-                await log("Successfully said: '%s'" % color(out, "code"), "info")
+                await Logger.info("Successfully said: '%s'" % color(out, "code"))
             else:
                 out = out[1:-1]
-                await log("Successfully said: '%s'" % color(out, "code"), "info")
+                await Logger.info("Successfully said: '%s'" % color(out, "code"))
         else:
-            await log("Successfully said: '%s'" % out, "info")
+            await Logger.info("Successfully said: '%s'" % out)
     else:
-        await log("Doesn't accept empty messages.", "error")
+        await Logger.error("Doesn't accept empty messages.")

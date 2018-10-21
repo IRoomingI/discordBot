@@ -1,4 +1,5 @@
-from utils import log, get_owner
+import Logger
+from utils import get_owner
 
 
 async def ex(args, message, client, invoke):
@@ -7,14 +8,14 @@ async def ex(args, message, client, invoke):
             nick = " ".join(args)
             if message.author.id != get_owner():
                 await client.change_nickname(message.author, nick)
-                await log("Changed %s's nickname to %s." % (message.author.name, nick), "info")
+                await Logger.info("Changed %s's nickname to %s." % (message.author.name, nick))
             else:
-                await log("Can't change the nick of the guilds owner.", "error", chat=True, chan=message.channel, client=client)
+                await Logger.error("Can't change the nick of the guilds owner.", chat=True, chan=message.channel)
         else:
             if message.author.id != get_owner():
                 await client.change_nickname(message.author, None)
-                await log("Reset %s's nickname." % message.author.name, "info")
+                await Logger.info("Reset %s's nickname." % message.author.name)
             else:
-                await log("Can't change the nick of the guilds owner.", "error", chat=True, chan=message.channel, client=client)
+                await Logger.error("Can't change the nick of the guilds owner.", chat=True, chan=message.channel)
     else:
-        await log("No nickname entered.", "error", chat=True, chan=message.channel, client=client)
+        await Logger.error("No nickname entered.", chat=True, chan=message.channel)

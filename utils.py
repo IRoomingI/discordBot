@@ -1,62 +1,39 @@
 from colorama import Fore, Style, init
-import discord
-import asyncio
-import json
-
+import discord, asyncio, json, Logger
 
 # Colorama init
 
 init()
 
-# Load config
+# Load config and data
 
 mode = "prod"
 
 
-def load_config():
-    if mode == "dev":
-        config_file = open("devconf.json", "r", encoding="utf-8")
-    else:
-        config_file = open("CONFIG.json", "r", encoding="utf-8")
-    config = json.load(config_file)
-    config_file.close()
-    return config
+def load():
+    with open("CONFIG.json" if mode != "dev" else "devCONFIG.json", "r", encoding="utf-8") as f:
+        config = json.load(f)
+    with open("data.json" if mode != "dev" else "devdata.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return config, data
 
 
-config = load_config()
+config, data = load()
 
+
+# Insert config and data
 
 def insert_config(newconf):
-    if mode == "dev":
-        config_file = open("devconf.json", "w", encoding="utf-8")
-    else:
-        config_file = open("CONFIG.json", "w", encoding="utf-8")
-    json.dump(newconf, config_file, ensure_ascii=False, indent=4)
-    config_file.close()
+    with open("CONFIG.json" if mode != "dev" else "devCONFIG.json", "w", encoding="utf-8") as f:
+        json.dump(newconf, f, ensure_ascii=False, indent=4)
 
 
-# Logger
+def insert_data(newdata):
+    with open("data.json" if mode != "dev" else "devdata.json", "w", encoding="utf-8") as f:
+        json.dump(newdata, f, ensure_ascii=False, indent=4)
 
-async def log(message, logtype, chat=False, chan=None, client=None, delete=True):
-    """Used for logging in terminal and if wanted also to the Discord channel."""
-    if logtype == "error":
-        pref = "[ " + color(logtype.upper(), "red") + " ]"
-        col = discord.Color.red()
-    elif logtype == "info":
-        pref = "[ " + color(logtype.upper(), "green") + " ]"
-        col = discord.Color.green()
-    else:
-        pref = ""
-        col = discord.Color.blue()
-    output = pref + "  " + message
-    print(output.replace("*", ""))
 
-    if chat:
-        return_msg = await client.send_message(chan, embed=discord.Embed(color=col, description=message))
-        if delete:
-            await asyncio.sleep(2.5)
-            await client.delete_message(return_msg) 
-
+# Color stuff
 
 def color(string, color):
     """Choose a color for terminal output. Red, Green, Blue, White and 'Code'"""
@@ -68,6 +45,8 @@ def color(string, color):
         string = Style.BRIGHT + Fore.BLUE + string
     elif color == "white":
         string = Fore.WHITE + string
+    elif color == "yellow":
+        string = Fore.YELLOW + string
     elif color == "code":
         string = Style.DIM + Fore.YELLOW + string
     else:
@@ -91,13 +70,20 @@ def get_owner():
     return config["OWNER_ID"]
 
 
+def get_autorole_ids():
+    return data["AUTOROLE_IDS"]
+
+def set_autorole_ids(ids):
+    data["AUTOROLE_IDS"] = ids
+    insert_data(data)
+
 def get_colors():
-    return config["COLOR_ROLES"]
+    return data["COLOR_ROLES"]
 
 
 def set_colors(roles):
-    config["COLOR_ROLES"] = roles
-    insert_config(config)
+    data["COLOR_ROLES"] = roles
+    insert_data(data)
 
 
 async def set_prefix(pref, channel, userid, client):
@@ -105,11 +91,11 @@ async def set_prefix(pref, channel, userid, client):
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insert_config(config)
-            await log("Successfully changed prefix to: %s" % color(pref, "white"), "info", chat=True, chan=channel, client=client, delete=False)  
+            await Logger.info("Successfully changed prefix to: **%s**" % pref, chat=True, chan=channel, delete=False)  
         else:
-            await log("Longer than 8 characters.", "error", chat=True, chan=channel, client=client)
+            await Logger.error("Longer than 8 characters.", chat=True, chan=channel)
     else:
-        await log("Failed because the user isn't the owner.", "error", chat=True, chan=channel, client=client)
+        await Logger.error("Failed because the user isn't the owner.", chat=True, chan=channel)
 
 
 def get_game():

@@ -1,9 +1,11 @@
-import discord
-from discord import Game
-import utils
-from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick, cmd_poll
+import Logger, discord, utils
+from commands import cmd_ping, cmd_clear, cmd_say, cmd_help, cmd_color, cmd_game, cmd_prefix, cmd_nick, cmd_poll, cmd_autorole
 
 client = discord.Client()
+
+# Sending client to the Logger
+
+Logger.set_client(client)
 
 commands = {
 
@@ -15,7 +17,8 @@ commands = {
     "game": cmd_game,
     "prefix": cmd_prefix,
     "nick": cmd_nick,
-    "poll": cmd_poll
+    "poll": cmd_poll,
+    "autorole": cmd_autorole
 
 }
 
@@ -23,11 +26,11 @@ commands = {
 @client.event
 async def on_ready():
 
-    await utils.log("%s started successfully. Running on server(s):" % client.user.name, "info")
+    await Logger.info("%s started successfully. Running on server(s):" % client.user.name)
     for s in client.servers:
-        await utils.log("  - %s (%s)" % (s.name, s.id), "")
+        print("  - %s (%s)" % (s.name, s.id))
 
-    await client.change_presence(game=Game(name=utils.get_game()))
+    await client.change_presence(game=discord.Game(name=utils.get_game()))
 
 
 @client.event
@@ -35,14 +38,16 @@ async def on_message(message):
     if message.content.startswith(utils.get_prefix()):
         invoke = message.content[len(utils.get_prefix()):].split(" ")[0]
         args = message.content.split(" ")[1:]
-        if commands.__contains__(invoke):
+        if invoke in commands:
             if invoke != "clear": await client.delete_message(message)
-            await utils.log("%s is executing command %s" % (utils.color(message.author.name + " (%s)" % message.author.id, "white"), utils.color(invoke, "blue")), "info")
+            await Logger.info("%s is executing command %s" % (utils.color(message.author.name + " (%s)" % message.author.id, "white"), utils.color(invoke, "blue")))
             await commands.get(invoke).ex(args, message, client, invoke)
         else:
             await client.delete_message(message)
-            await utils.log("Command not found: %s" % invoke, "error", chat=True, chan=message.channel, client=client, delete=True)
+            await Logger.error("Command not found: %s" % invoke, chat=True, chan=message.channel)
 
+
+# Voting for polls
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -51,7 +56,35 @@ async def on_reaction_add(reaction, user):
         await commands.get("poll").vote(message, user, client, reaction)
 
 
+# Autorole / Join
+
+@client.event
+async def on_member_join(member):
+    role_ids = utils.get_autorole_ids()
+    not_found = False
+    msg = "==> %s (%s) joined %s." % (utils.color(member.name, "white"), member.id, utils.color(member.server.name, "blue"))
+    if len(role_ids) > 0:
+        add_roles = []
+        for r in role_ids:
+            found = discord.utils.find(lambda add: add.id == r , member.server.roles)
+            if found != None:
+                add_roles.append(found)
+        if len(add_roles) > 0:
+            for r in add_roles:
+                    await client.add_roles(member, r)
+            role_names = []
+            for r in add_roles:
+                role_names.append(r.name)
+            msg += " Automatically assigned the role(s): %s" % ", ".join(role_names)
+        else:
+            not_found = True
+    await Logger.info(msg)
+    if not_found:
+        await Logger.warn("Could not find any of the entered Role IDs for Autorole.")
+
 try:
     client.run(utils.get_token())
 except discord.LoginFailure:
     print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("config.json", "blue")))
+except RuntimeError:
+    print("\nShutting down...")
