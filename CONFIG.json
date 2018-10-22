@@ -2,7 +2,5 @@
     "TOKEN": "BOT_TOKEN_HERE",
     "PREFIX": "+",
     "OWNER_ID": "DISCORD_USER_ID_HERE",
-    "GAME": "alone D:",
-    "AUTOROLE_IDS":[],
-    "COLOR_ROLES": {}
+    "GAME": "alone D:"
 }
