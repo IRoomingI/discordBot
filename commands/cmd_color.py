@@ -81,7 +81,7 @@ async def ex(args, message, client, invoke):
                 else:
                     await Logger.error("Color name doesn't exist: '%s'" % color_name, chat=True, chan=message.channel)
             else:
-                await Logger.error("Usage: `%scolor remove color_name`" % get_prefix(), chat=True, chan=message.channel)    
+                await Logger.error("Usage: `%scolor remove color_name`" % get_prefix(), chat=True, chan=message.channel)
         else:
             await Logger.error("Sorry, but only the Owner can remove colors.", chat=True, chan=message.channel)
     else:
@@ -107,4 +107,3 @@ async def ex(args, message, client, invoke):
             except discord.Forbidden:
                         await Logger.error("Can't add the new color role. No permission.", chat=True, chan=message.channel)
             await Logger.info("Successfully changed to color: '%s'" % color)
-            

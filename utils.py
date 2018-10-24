@@ -1,5 +1,5 @@
 from colorama import Fore, Style, init
-import discord, asyncio, json, Logger
+import discord, json, Logger
 
 # Colorama init
 
@@ -7,7 +7,7 @@ init()
 
 # Load config and data
 
-mode = "prod"
+mode = "dev"
 
 
 def load():
@@ -91,7 +91,7 @@ async def set_prefix(pref, channel, userid, client):
         if isinstance(pref, str) and len(pref) <= 8:
             config["PREFIX"] = pref
             insert_config(config)
-            await Logger.info("Successfully changed prefix to: **%s**" % pref, chat=True, chan=channel, delete=False)  
+            await Logger.info("Successfully changed prefix to: **%s**" % pref, chat=True, chan=channel, delete=False)
         else:
             await Logger.error("Longer than 8 characters.", chat=True, chan=channel)
     else:

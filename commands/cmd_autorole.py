@@ -22,7 +22,7 @@ async def ex(args, message, client, invoke):
             else:
                 await Logger.error("Role is not registered. Try **@role**", chat=True, chan=message.channel)
     elif len(args) < 1:
-        await Logger.error("Usage: `%sautorole add @role`" % get_prefix(), chat=True, chan=message.channel)
+        await Logger.error("Usage: `%sautorole add @role` or `%sautorole remove @role`" % get_prefix(), chat=True, chan=message.channel)
     elif args[0] == "list":
         role_names = []
         for r in autorole_ids:

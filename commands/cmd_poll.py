@@ -44,7 +44,7 @@ async def ex(args, message, client, invoke):
             await Logger.error("Poll with same name already exists. Please choose another one.", chat=True, chan=message.channel)
     else:
         await Logger.error("You need to enter the poll's id, description and options.", chat=True, chan=message.channel)
-            
+
 
 
 async def vote(message, user, client, reaction):
@@ -73,8 +73,8 @@ def get_poll_id(message):
 async def close_poll(message, client):
     poll_id = get_poll_id(message)
     await client.clear_reactions(openPolls[poll_id]["message"])
-    for e in range(len(closed)):
-        await client.add_reaction(openPolls[poll_id]["message"], closed[e])
+    for e in closed:
+        await client.add_reaction(openPolls[poll_id]["message"], e)
     await Logger.info("Successfully closed poll '%s'." % poll_id)
 
 
