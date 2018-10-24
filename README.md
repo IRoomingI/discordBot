@@ -31,6 +31,7 @@ This is project was started for fun and I can't promise frequent updates.
     "OWNER_ID" : "22234234354326"   (your discord user id)
     "GAME" : "a game"               (game that the bot plays)
     ```
+
 * Execute the _main.py_ `python3 main.py`
 
 * **or** use the _start.sh_ if you are on Linux `sh start.sh` (make sure you are in the same folder and have _screen_ installed)
@@ -39,19 +40,19 @@ This is project was started for fun and I can't promise frequent updates.
 
 ## Commands
 
-Note: You can change the command prefix in the CONFIG.json or with the *prefix* command (default prefix is: +)
+Note: You can change the command prefix in the CONFIG.json or with the _prefix_ command (default prefix is: +)
 
-Arguments in these brackets <> mean they are neccessary. Arguments in [] are optional
+Arguments in these brackets <> mean they are neccessary. Arguments in \[ ] are optional
 
 | Command | Arguments | Example | Explanation |
 |---------|:------------------------------------:|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| help | - | +help | Sends a message with all commands their arguments and a short explanation. |
-| clear | \<number> | +clear 42 | Deletes messages from the channel including the command message (max number is 99) |
-| ping | \[string] | +ping | Sends you a private message saying "Pong!" with your optionally attached arguments. |
-| say | \<string> | +say Hello World! | The bot sends the text as a message and deletes your message. |
-| game | \<string> | +game Half Life 3? | Changes the game the bot is playing to the text you enter. |
-| prefix | \<string> | +prefix ~ | Changes the preferred command prefix (max length is 8). **OWNER ONLY** |
-| nick | \<string> | +nick A better name | Changes your nickname on the server. |
-| color | <add/remove/list/color_name> [@role] | +color add red *@redrole* +color remove green +color red +color list | Add roles as colors your members can choose from.(Owner Only)  Remove a role from the 'color table'. (Owner Only) Change your color. List all colors. |
-| poll | \<string> \<list> | +poll "Some description for the poll" ["Option 1", "Option 2", "Option3"] | Create a poll. You can vote by reacting to the message. The creator of the poll can close it by reacting with a :x:. |
-| autrole | <add/remove> <@role> | +autorole add @Member +autorole remove @cool | Configure which roles should be automatically assigned to users joining the server. |
+| help | - | `+help` | Sends a message with all commands their arguments and a short explanation. |
+| clear | \<number> | `+clear 42` | Deletes messages from the channel including the command message (max number is 99) |
+| ping | \[string] | `+ping` | Sends you a private message saying "Pong!" with your optionally attached arguments. |
+| say | \<string> | `+say Hello World!` | The bot sends the text as a message and deletes your message. |
+| game | \<string> | `+game Half Life 3?` | Changes the game the bot is playing to the text you enter. |
+| prefix | \<string> | `+prefix ~` | Changes the preferred command prefix (max length is 8). _OWNER ONLY_ |
+| nick | \<string> | `+nick A better name` | Changes your nickname on the server. |
+| color | <add/remove/list/color_name> \[@role] | `+color add red @redrole` `+color remove green` `+color red` `+color list` | Add roles as colors your members can choose from.(Owner Only)  Remove a role from the 'color table'. (Owner Only) Change your color. List all colors. |
+| poll | \<string> \<list> | `+poll "Some description for the poll" ["Option 1", "Option 2", "Option3"]` | Create a poll. You can vote by reacting to the message. The creator of the poll can close it by reacting with a :x:. |
+| autrole | <add/remove> <@role> | `+autorole add @Member` `+autorole remove @cool` | Configure which roles should be automatically assigned to users joining the server. |
