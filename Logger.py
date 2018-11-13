@@ -18,7 +18,7 @@ async def info(text, chat=False, chan=None, delete=True):
     pref = "[ " + color("INFO", "green") + " ]"
     output = pref + "  " + text
     print(output.replace("*", ""))
-    if chat: await send_chat(text, Color.green(), chan, delete)
+    if chat: await send_chat(text, 0x2ecc71, chan, delete)
 
 
 async def error(text, chat=False, chan=None, delete=True):
@@ -26,7 +26,7 @@ async def error(text, chat=False, chan=None, delete=True):
     pref = "[ " + color("ERROR", "red") + " ]"
     output = pref + "  " + text
     print(output.replace("*", ""))
-    if chat: await send_chat(text, Color.red(), chan, delete)
+    if chat: await send_chat(text, 0xe74c3c, chan, delete)
 
 
 async def warn(text, chat=False, chan=None, delete=True):
@@ -34,7 +34,7 @@ async def warn(text, chat=False, chan=None, delete=True):
     pref = "[ " + color("WARN", "yellow") + " ]"
     output = pref + "  " + text
     print(output.replace("*", ""))
-    if chat: await send_chat(text, Color.gold(), chan, delete)
+    if chat: await send_chat(text, 0xf1c40f, chan, delete)
 
 
 # Sending the Embed chat message

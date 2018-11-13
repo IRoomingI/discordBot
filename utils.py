@@ -1,5 +1,5 @@
 from colorama import Fore, Style, init
-import discord, json, Logger
+import json, Logger
 
 # Colorama init
 
@@ -7,7 +7,7 @@ init()
 
 # Load config and data
 
-mode = "dev"
+mode = "production"
 
 
 def load():
