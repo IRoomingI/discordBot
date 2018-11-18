@@ -12,7 +12,8 @@ cmds = {
         "game": ["text", "Change the game that the bot is currently playing."],
         "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
         "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
-        "poll": ['"description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."]
+        "poll": ['"description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."],
+        "autorole": ["add/remove", "Configure the roles that are assigned to users joining the server."]
 }
 
 

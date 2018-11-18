@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 devCONFIG.json
 devdata.json
+*old*
