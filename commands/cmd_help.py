@@ -1,4 +1,4 @@
-import Logger
+import Logger, discord
 from utils import get_prefix
 from datetime import datetime
 
@@ -16,12 +16,23 @@ cmds = {
         "autorole": ["add/remove", "Configure the roles that are assigned to users joining the server."]
 }
 
+porn = ["http://www.xvideos.com/", "http://www.youporn.com/","http://xhamster.com/","http://www.xnxx.com/", "http://www.youjizz.com/",
+        "http://www.mofosex.com/","http://www.befuck.com/","http://www.pornhub.com/","http://xxxbunker.com/","http://www.drtuber.com/",
+        "http://www.pornhost.com/","http://www.tube8.com/","http://spankbang.com/","http://www.tube8.com/","http://spankbang.com/"]
+
 
 async def ex(args, message, client, invoke):
-    msg = "```--- Help ---\n\n"
-    msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
-    for key in sorted(cmds):
-        msg += "\t" + get_prefix() + key + "  " + "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
-    msg += "\n------------```"
+    otaku = discord.utils.find(lambda r: r.name == "Otaku", message.author.roles)
+    if otaku.name != "Otaku":
+        msg = "```--- Help ---\n\n"
+        msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
+        for key in sorted(cmds):
+            msg += "\t" + get_prefix() + key + "  " + "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
+        msg += "\n------------```"
+    else:
+        msg = "``` Stop it, get some help:\n\n"
+        for p in porn:
+            msg += "- %s\n" % p
+        msg += "```"
     await client.send_message(message.channel, msg)
     await Logger.info("Successfully sent help text.")

@@ -10,7 +10,6 @@ import discord, uuid, Logger, copy
 #         options = {
 #             1 : "Option text here...",
 #             2 : "Another option here..."
-#     }
 # }
 
 openPolls = {}
@@ -27,7 +26,7 @@ class Poll:
         self.voters = {}
         for num in options:
             self.voters.update({num : []})
-    
+
     def add_voter(self, user, vote):
         self.voters[vote].append(user.id)
 
