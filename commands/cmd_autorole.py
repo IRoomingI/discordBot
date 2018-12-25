@@ -22,12 +22,12 @@ async def ex(args, message, client, invoke):
             else:
                 await Logger.error("Role is not registered. Try **@role**", chat=True, chan=message.channel)
     elif len(args) < 1:
-        await Logger.error("Usage: `%sautorole add @role` or `%sautorole remove @role`" % get_prefix(), chat=True, chan=message.channel)
+        await Logger.error("Usage: `%sautorole add @role` or `%sautorole remove @role`" % (get_prefix(), get_prefix()), chat=True, chan=message.channel)
     elif args[0] == "list":
         role_names = []
         for r in autorole_ids:
             found = discord.utils.find(lambda add: add.id == r , message.author.server.roles)
-            if found != None:
+            if found is not None:
                 role_names.append("@" + found.name)
         if len(role_names) > 0:
             await Logger.info("Registered role(s): %s" % ", ".join(role_names), chat=True, chan=message.channel, delete=False)
