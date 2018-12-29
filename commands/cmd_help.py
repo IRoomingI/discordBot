@@ -18,12 +18,12 @@ cmds = {
 
 porn = ["http://www.xvideos.com/", "http://www.youporn.com/","http://xhamster.com/","http://www.xnxx.com/", "http://www.youjizz.com/",
         "http://www.mofosex.com/","http://www.befuck.com/","http://www.pornhub.com/","http://xxxbunker.com/","http://www.drtuber.com/",
-        "http://www.pornhost.com/","http://www.tube8.com/","http://spankbang.com/","http://www.tube8.com/","http://spankbang.com/"]
+        "http://www.pornhost.com/","http://www.tube8.com/","http://spankbang.com/"]
 
 
 async def ex(args, message, client, invoke):
     otaku = discord.utils.find(lambda r: r.name == "Otaku", message.author.roles)
-    if otaku.name != "Otaku":
+    if otaku.name != "Otaku" and str(args[0]).lower() == "me":
         msg = "```--- Help ---\n\n"
         msg += "Date: " + str(datetime.now()).split(".")[0] + "\n\n"
         for key in sorted(cmds):

@@ -48,23 +48,20 @@ async def ex(args, message, client, invoke):
                 await client.remove_roles(message.author, r)
         await Logger.info("Successfully cleared color.")
     elif args[0] == "add":
-        if message.author.id == get_owner():
-            if len(args) > 1:
+        if message.author.id == get_owner() or message.author.id == message.server.owner.id:
+            if len(args) > 2:
                 color_name = args[1]
-                if len(args) > 2:
-                    if len(args[2]) > 20:
-                        role_id = args[2][3:-1]
-                        if color_name not in get_colors():
-                            roles = get_colors()
-                            roles.update({color_name: role_id})
-                            set_colors(roles)
-                            await Logger.info("Successfully added color: '%s'" % color_name, chat=True, chan=message.channel)
-                        else:
-                            await Logger.error("Color already exists: '%s'" % color_name, chat=True, chan=message.channel)
+                if len(args[2]) > 20:
+                    role_id = args[2][3:-1]
+                    if color_name not in get_colors():
+                        roles = get_colors()
+                        roles.update({color_name: role_id})
+                        set_colors(roles)
+                        await Logger.info("Successfully added color: '%s'" % color_name, chat=True, chan=message.channel)
                     else:
-                        await Logger.error("Please use **@role** and check if the role is mentionable.", chat=True, chan=message.channel)
+                        await Logger.error("Color already exists: '%s'" % color_name, chat=True, chan=message.channel)
                 else:
-                    await Logger.error("Usage: `%scolor add color_name @role`" % get_prefix(), chat=True, chan=message.channel)
+                    await Logger.error("Please use **@role** and check if the role is mentionable.", chat=True, chan=message.channel)
             else:
                 await Logger.error("Usage: `%scolor add color_name @role`" % get_prefix(), chat=True, chan=message.channel)
         else:
