@@ -30,8 +30,8 @@ async def ex(args, message, client, invoke):
             if len(role_names) > 0:
                 await Logger.info("Registered role(s): %s" % ", ".join(role_names))
                 tmp = []
-                for id in data["AUTOROLE_IDS"]:
-                    tmp.append("<@&%s>" % id)
+                for role_id in data["AUTOROLE_IDS"]:
+                    tmp.append("<@&%s>" % role_id)
                 out = ", ".join(tmp)
                 await Logger.send_chat("Registered role(s): %s" % out, color=0x2ecc71, chan=message.channel, delete=False)
             else:

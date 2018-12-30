@@ -1,5 +1,5 @@
 from colorama import Fore, Style, init
-import json, Logger, time
+import json, Logger
 
 # Colorama init
 
@@ -32,8 +32,10 @@ def update():
 
 # Color stuff
 
-colors = {"red": Fore.RED, "green": Fore.GREEN, "blue": Style.BRIGHT + Fore.BLUE, 
-          "white": Fore.WHITE, "yellow": Fore.YELLOW, "code": Style.DIM + Fore.YELLOW}
+colors = {
+    "red": Fore.RED, "green": Fore.GREEN, "blue": Style.BRIGHT + Fore.BLUE,
+    "white": Fore.WHITE, "yellow": Fore.YELLOW, "code": Style.DIM + Fore.YELLOW
+}
 
 def color(string, color):
     """Choose a color for terminal output. Red, Green, Blue, White and 'Code'"""

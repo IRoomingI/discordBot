@@ -32,16 +32,16 @@ async def ex(args, message, client, invoke):
         msg = help_text()
     await client.send_message(message.channel, msg)
     await Logger.info("Successfully sent help text.")
-        
 
-def help_text(type = "normal"):
-    if type == "normal":
+
+def help_text(version = "normal"):
+    if version == "normal":
         msg = "```--- Help ---\n\n"
         msg += "Date: " + datetime.now().strftime("%X | %A %d %B %Y") + "\n\n"
         for key in sorted(cmds):
             msg += "\t" + config["PREFIX"] + key + "  " + "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
         msg += "\n------------```"
-    elif type == "otaku":
+    elif version == "otaku":
         msg = "``` Stop it, get some help:\n\n"
         for p in porn:
             msg += "- %s\n" % p
