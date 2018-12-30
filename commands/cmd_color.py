@@ -1,9 +1,9 @@
-from utils import get_colors, set_colors, get_prefix, get_owner
+from utils import data, config
 import discord, asyncio, Logger
 
 
 def get_new_role(roles, color):
-    colorList = get_colors()
+    colorList = data["COLOR_ROLES"]
     for r in roles:
         if r.id == colorList[color]:
             return r
@@ -11,7 +11,7 @@ def get_new_role(roles, color):
 
 def get_old_roles(message):
     out = []
-    colorList = get_colors()
+    colorList = data["COLOR_ROLES"]
     for r in message.author.roles:
         for color in colorList:
             if r.id in colorList[color]:
@@ -20,7 +20,7 @@ def get_old_roles(message):
 
 
 async def color_help(chan, client):
-    color_list = get_colors()
+    color_list = data["COLOR_ROLES"]
     if len(color_list) > 0:
         msg = "All colors: "
         count = 1
@@ -31,7 +31,7 @@ async def color_help(chan, client):
                 msg += key + ", default"
             count += 1
     else:
-        msg = "No colors. Add by: `%scolor add color_name @role`" % get_prefix()
+        msg = "No colors. Add by: `%scolor add color_name @role`" % config["PREFIX"]
 
     await Logger.info(msg, chat=True, chan=chan, delete=False)
 
@@ -48,37 +48,33 @@ async def ex(args, message, client, invoke):
                 await client.remove_roles(message.author, r)
         await Logger.info("Successfully cleared color.")
     elif args[0] == "add":
-        if message.author.id == get_owner() or message.author.id == message.server.owner.id:
+        if message.author.id == config["OWNER_ID"] or message.author.id == message.server.owner.id:
             if len(args) > 2:
                 color_name = args[1]
                 if len(args[2]) > 20:
                     role_id = args[2][3:-1]
-                    if color_name not in get_colors():
-                        roles = get_colors()
-                        roles.update({color_name: role_id})
-                        set_colors(roles)
+                    if color_name not in data["COLOR_ROLES"]:
+                        data["COLOR_ROLES"].update({color_name: role_id})
                         await Logger.info("Successfully added color: '%s'" % color_name, chat=True, chan=message.channel)
                     else:
                         await Logger.error("Color already exists: '%s'" % color_name, chat=True, chan=message.channel)
                 else:
                     await Logger.error("Please use **@role** and check if the role is mentionable.", chat=True, chan=message.channel)
             else:
-                await Logger.error("Usage: `%scolor add color_name @role`" % get_prefix(), chat=True, chan=message.channel)
+                await Logger.error("Usage: `%scolor add color_name @role`" % config["PREFIX"], chat=True, chan=message.channel)
         else:
             await Logger.error("Sorry, but only the Owner can add colors.", chat=True, chan=message.channel)
     elif args[0] == "remove":
-        if message.author.id == get_owner():
+        if message.author.id == config["OWNER_ID"]:
             if len(args) > 1:
                 color_name = args[1]
-                if color_name in get_colors():
-                    roles = get_colors()
-                    del roles[color_name]
-                    set_colors(roles)
+                if color_name in data["COLOR_ROLES"]:
+                    del data["COLOR_ROLES"][color_name]
                     await Logger.info("Successfully removed color: '%s'" % color_name, chat=True, chan=message.channel)
                 else:
                     await Logger.error("Color name doesn't exist: '%s'" % color_name, chat=True, chan=message.channel)
             else:
-                await Logger.error("Usage: `%scolor remove color_name`" % get_prefix(), chat=True, chan=message.channel)
+                await Logger.error("Usage: `%scolor remove color_name`" % config["PREFIX"], chat=True, chan=message.channel)
         else:
             await Logger.error("Sorry, but only the Owner can remove colors.", chat=True, chan=message.channel)
     else:

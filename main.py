@@ -30,18 +30,19 @@ async def on_ready():
     for s in client.servers:
         print("  - %s (%s)" % (s.name, s.id))
 
-    await client.change_presence(game=discord.Game(name=utils.get_game()))
+    await client.change_presence(game=discord.Game(name=utils.config["GAME"]))
 
 
 @client.event
 async def on_message(message):
-    if message.content.startswith(utils.get_prefix()):
-        invoke = message.content[len(utils.get_prefix()):].split(" ")[0]
+    if message.content.startswith(utils.config["PREFIX"]):
+        invoke = message.content[len(utils.config["PREFIX"]):].split(" ")[0]
         args = message.content.split(" ")[1:]
         if invoke in commands:
             if invoke != "clear": await client.delete_message(message)
             await Logger.info("%s is executing command %s" % (utils.color(message.author.name + " (%s)" % message.author.id, "white"), utils.color(invoke, "blue")))
             await commands.get(invoke).ex(args, message, client, invoke)
+            utils.update()
         else:
             await client.delete_message(message)
             await Logger.error("Command not found: %s" % invoke, chat=True, chan=message.channel)
@@ -60,7 +61,7 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_member_join(member):
-    role_ids = utils.get_autorole_ids()
+    role_ids = utils.config["AUTOROLE_IDS"]
     not_found = False
     msg = "==> %s (%s) joined %s." % (utils.color(member.name, "white"), member.id, utils.color(member.server.name, "blue"))
     if len(role_ids) > 0:
@@ -83,7 +84,7 @@ async def on_member_join(member):
         await Logger.warn("Could not find any of the entered Role IDs for Autorole.")
 
 try:
-    client.run(utils.get_token())
+    client.run(utils.config["TOKEN"])
 except discord.LoginFailure:
     print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("config.json", "blue")))
 except RuntimeError:
