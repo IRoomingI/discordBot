@@ -61,7 +61,7 @@ async def on_reaction_add(reaction, user):
 
 @client.event
 async def on_member_join(member):
-    role_ids = utils.config["AUTOROLE_IDS"]
+    role_ids = utils.data["AUTOROLE_IDS"]
     not_found = False
     msg = "==> %s (%s) joined %s." % (utils.color(member.name, "white"), member.id, utils.color(member.server.name, "blue"))
     if len(role_ids) > 0:
