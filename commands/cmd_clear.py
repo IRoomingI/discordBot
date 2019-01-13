@@ -11,12 +11,8 @@ async def ex(args, message, client, invoke):
             await Logger.error("Could not clear message(s)! Wrong value: '%s'" % " ".join(args), chat=True, chan=message.channel)
             return
 
-        messages = []
-        async for m in client.logs_from(message.channel, limit=amount):
-            messages.append(m)
-
         try:
-            await client.delete_messages(messages)
+            await client.purge_from(message.channel, limit=amount)
         except discord.HTTPException:
             await Logger.error("Can't delete messages older than 14 days.", chat=True, chan=message.channel)
         except discord.ClientException:
