@@ -85,6 +85,8 @@ async def on_member_join(member):
 
 try:
     client.run(utils.config["TOKEN"])
+except ConnectionResetError:
+    Logger.warn("Connection reset by peer... Everything should still be fine")
 except discord.LoginFailure:
     print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("config.json", "blue")))
 except RuntimeError:

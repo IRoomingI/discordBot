@@ -6,7 +6,7 @@ This is a bot written in Python with help of the [discord.py API](https://github
 
 Packages you need to run the bot:
 
-* Python 3.5 or 3.6 (3.7 or newer may not work) [[Download](https://python.org/downloads/ "Python Download")]
+* Python 3.5 or higher [[Download](https://python.org/downloads/ "Python Download")]
 
 * discord.py package for Python (look at [discord.py](https://github.com/Rapptz/discord.py "discord.py Github Page") GitHub for installation info)
 
