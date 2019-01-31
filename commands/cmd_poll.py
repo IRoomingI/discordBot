@@ -60,7 +60,7 @@ async def vote(message, user, client, reaction):
     already_voted = False
     for users in poll.voters.values():
         if user.id in users:
-            already_voted = False
+            already_voted = True
     if reaction.emoji in unicodeEmojis.values() and not already_voted:
         emoji = reaction.emoji.encode("unicode_escape")
         content = message.embeds[0]["description"]
@@ -89,21 +89,6 @@ async def close_poll(message, client):
 
 
 def change_message(content, poll, old_votes):
-    # newmsg = content
-    # for option_number in openPolls[poll_id].options:
-    #     votes = len(openPolls[poll_id].voters[option_number])
-    #     if len(old_votes[option_number]) != votes:
-    #         string = openPolls[poll_id].options[option_number]
-    #         newmsg = list(newmsg)
-    #         start = content.find(string) + len(string) + 5
-    #         end = start + len(str(votes))
-    #         if votes == 10:
-    #             newmsg.insert(end - 1, " ")
-    #         elif votes == 100:
-    #             newmsg.insert(end - 1, " ")
-    #         for i in range(start,end):
-    #             newmsg[i] = str(votes)[i - start]
-    #         newmsg = "".join(newmsg)
     newmsg = ""
     for key in poll.options:
         newmsg += unicodeEmojis[key] + "  " + poll.options[key] + " : **%s**\n" % len(poll.voters[key])
