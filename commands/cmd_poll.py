@@ -3,7 +3,7 @@ import discord, uuid, Logger, copy
 
 # openPolls = {
 #     poll_id : ---> Poll Class <---
-#         description = "Some text right here",
+#         title = "Some text right here",
 #         message = message,
 #         creator = creator.id,
 #         voters = {1: [user1.id, user2.id], 2: [user3.id], 3: []}
@@ -18,11 +18,12 @@ closed = ["\U0001f1e8", "\U0001f1f1", "\U0001f1f4", "\U0001f1f8", "\U0001f1ea", 
 
 
 class Poll:
-    def __init__(self, desc, options):
+    def __init__(self, title, desc, options, message, creator):
+        self.title = title
         self.description = desc
         self.options = options
-        self.message = None
-        self.creator = None
+        self.message = message
+        self.creator = creator
         self.voters = {}
         for num in options:
             self.voters.update({num : []})
@@ -33,19 +34,18 @@ class Poll:
 
 async def ex(args, message, client, invoke):
     if len(args) > 0:
-        poll_id, new_poll = generate_poll(args)
-        if 6 >= len(new_poll.options) > 1:
-            out = "Vote With Reactions: \n\n**" + new_poll.description + "**\n\n`Options`\n"
-            for key in new_poll.options:
-                out += unicodeEmojis[key] + "  " + new_poll.options[key] + " : **0**\n"
-            poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), description=out))
-            new_poll.message = poll
-            new_poll.creator = message.author.id
-            openPolls.update({poll_id: new_poll})
-            for uni in new_poll.options:
+        poll_id, options, title = generate_poll(args)
+        if 6 >= len(options) > 1:
+            title = "Vote With Reactions: \n\n**" + title + "**\n\n`Options`\n"
+            desc = ""
+            for key in options:
+                desc += unicodeEmojis[key] + "  " + options[key] + " : **0**\n"
+            poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title=title, description=desc))
+            openPolls.update({poll_id: Poll(title, desc, options, poll, message.author.id)})
+            for uni in options:
                 await client.add_reaction(poll, unicodeEmojis[uni])
             await Logger.info("Successfully created poll with uuid '%s'." % poll_id)
-        elif len(new_poll.options) < 2:
+        elif len(options) < 2:
             await Logger.error("Can't create polls with less than two (2) options.", chat=True, chan=message.channel)
         else:
             await Logger.error("Can't create polls with more than six (6) options.", chat=True, chan=message.channel)
@@ -60,14 +60,14 @@ async def vote(message, user, client, reaction):
     already_voted = False
     for users in poll.voters.values():
         if user.id in users:
-            already_voted = True
+            already_voted = False
     if reaction.emoji in unicodeEmojis.values() and not already_voted:
         emoji = reaction.emoji.encode("unicode_escape")
         content = message.embeds[0]["description"]
         option_number = int(str(emoji)[2])
         old_votes = copy.deepcopy(poll.voters)
         poll.add_voter(user, option_number)
-        await client.edit_message(message, embed=discord.Embed(color=discord.Color.blue(), description=change_message(content, poll_id, old_votes)))
+        await client.edit_message(message, embed=discord.Embed(color=discord.Color.blue(), title=poll.title, description=change_message(content, poll, old_votes)))
     elif reaction.emoji == "\U0000274C":
         if user.id == poll.creator:
             await close_poll(message, client)
@@ -88,22 +88,25 @@ async def close_poll(message, client):
     await Logger.info("Successfully closed poll '%s'." % poll_id)
 
 
-def change_message(content, poll_id, old_votes):
-    newmsg = content
-    for option_number in openPolls[poll_id].options:
-        votes = len(openPolls[poll_id].voters[option_number])
-        if len(old_votes[option_number]) != votes:
-            string = openPolls[poll_id].options[option_number]
-            newmsg = list(newmsg)
-            start = content.find(string) + len(string) + 5
-            end = start + len(str(votes))
-            if votes == 10:
-                newmsg.insert(end - 1, " ")
-            elif votes == 100:
-                newmsg.insert(end - 1, " ")
-            for i in range(start,end):
-                newmsg[i] = str(votes)[i - start]
-            newmsg = "".join(newmsg)
+def change_message(content, poll, old_votes):
+    # newmsg = content
+    # for option_number in openPolls[poll_id].options:
+    #     votes = len(openPolls[poll_id].voters[option_number])
+    #     if len(old_votes[option_number]) != votes:
+    #         string = openPolls[poll_id].options[option_number]
+    #         newmsg = list(newmsg)
+    #         start = content.find(string) + len(string) + 5
+    #         end = start + len(str(votes))
+    #         if votes == 10:
+    #             newmsg.insert(end - 1, " ")
+    #         elif votes == 100:
+    #             newmsg.insert(end - 1, " ")
+    #         for i in range(start,end):
+    #             newmsg[i] = str(votes)[i - start]
+    #         newmsg = "".join(newmsg)
+    newmsg = ""
+    for key in poll.options:
+        newmsg += unicodeEmojis[key] + "  " + poll.options[key] + " : **%s**\n" % len(poll.voters[key])
     return newmsg
 
 
@@ -121,4 +124,4 @@ def generate_poll(args):
     options = {}
     for e in range(1, len(no_dupes) + 1):
         options[e] = temp[e]
-    return poll_id,  Poll(description, options)
+    return poll_id, options, description
