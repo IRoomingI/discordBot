@@ -65,16 +65,15 @@ async def on_member_join(member):
     not_found = False
     msg = "==> %s (%s) joined %s." % (utils.color(member.name, "white"), member.id, utils.color(member.server.name, "blue"))
     if len(role_ids) > 0:
-        add_roles = []
+        auto_roles = []
         for r in role_ids:
             found = discord.utils.find(lambda add: add.id == r , member.server.roles)
             if found != None:
-                add_roles.append(found)
-        if len(add_roles) > 0:
-            for r in add_roles:
-                    await client.add_roles(member, r)
+                auto_roles.append(found)
+        if len(auto_roles) > 0:
+            await client.add_roles(member, auto_roles)
             role_names = []
-            for r in add_roles:
+            for r in auto_roles:
                 role_names.append(r.name)
             msg += " Automatically assigned the role(s): %s" % ", ".join(role_names)
         else:
@@ -85,9 +84,9 @@ async def on_member_join(member):
 
 try:
     client.run(utils.config["TOKEN"])
-except ConnectionResetError:
+except ConnectionResetError():
     Logger.warn("Connection reset by peer... Everything should still be fine")
 except discord.LoginFailure:
-    print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("config.json", "blue")))
+    print("It seems like no %s was given or it was incorrect. Please check the %s!" % (utils.color("Discord Bot Token", "red"), utils.color("CONFIG.json", "blue")))
 except RuntimeError:
     print("\nShutting down...")
