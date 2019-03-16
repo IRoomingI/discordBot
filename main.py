@@ -71,7 +71,8 @@ async def on_member_join(member):
             if found != None:
                 auto_roles.append(found)
         if len(auto_roles) > 0:
-            await client.add_roles(member, auto_roles)
+            for r in auto_roles:
+                await client.add_roles(member, r)
             role_names = []
             for r in auto_roles:
                 role_names.append(r.name)
