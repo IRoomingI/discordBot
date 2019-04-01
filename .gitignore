@@ -4,4 +4,5 @@ __pycache__
 *.pyc
 devCONFIG.json
 devdata.json
+data.db
 *old*

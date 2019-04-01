@@ -1,4 +1,5 @@
-import discord, Logger
+import discord
+import Logger
 
 
 async def ex(args, message, client, invoke):

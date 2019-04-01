@@ -7,39 +7,63 @@ from utils import color
 
 client = None
 
+
 def set_client(c):
     global client
     client = c
 
 # Different logging types
 
-async def info(text, chat=False, chan=None, delete=True):
+
+async def info(text, chan=None, delete=True):
     """Displays an information in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("INFO", "green") + " ]"
-    output = pref + "  " + text
+    terminal_text = ""
+    if "`" in list(text):
+        split = text.split("`")
+        code = color(split[1], "code")
+        split[1] = code
+        terminal_text = "".join(split)
+    output = pref + "  " + (text if terminal_text == "" else terminal_text)
     print(output.replace("*", ""))
-    if chat: await send_chat(text, 0x2ecc71, chan, delete)
+    if chan != None:
+        await send_chat(text, 0x2ecc71, chan, delete)
 
 
-async def error(text, chat=False, chan=None, delete=True):
+async def error(text, chan=None, delete=True):
     """Displays an error in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("ERROR", "red") + " ]"
-    output = pref + "  " + text
+    terminal_text = ""
+    if "`" in list(text):
+        split = text.split("`")
+        code = color(split[1], "code")
+        split[1] = code
+        terminal_text = "".join(split)
+    output = pref + "  " + (text if terminal_text == "" else terminal_text)
     print(output.replace("*", ""))
-    if chat: await send_chat(text, 0xe74c3c, chan, delete)
+    if chan != None:
+        await send_chat(text, 0xe74c3c, chan, delete)
 
 
-async def warn(text, chat=False, chan=None, delete=True):
+async def warn(text, chan=None, delete=True):
     """Displays a warning in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("WARN", "yellow") + " ]"
-    output = pref + "  " + text
+    terminal_text = ""
+    if "`" in list(text):
+        split = text.split("`")
+        code = color(split[1], "code")
+        split[1] = code
+        terminal_text = "".join(split)
+    output = pref + "  " + (text if terminal_text == "" else terminal_text)
     print(output.replace("*", ""))
-    if chat: await send_chat(text, 0xf1c40f, chan, delete)
+    if chan != None:
+        await send_chat(text, 0xf1c40f, chan, delete)
 
 
 # Sending the Embed chat message
+
 async def send_chat(text, color, chan, delete):
     return_msg = await client.send_message(chan, embed=Embed(color=color, description=text))
     if delete:
         await asyncio.sleep(2.5)
-        await client.delete_message(return_msg) 
+        await client.delete_message(return_msg)

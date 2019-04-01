@@ -56,3 +56,4 @@ Arguments in these brackets <> mean they are neccessary. Arguments in \[ ] are o
 | color | <add/remove/list/color_name> \[@role] | `+color add red @redrole` `+color remove green` `+color red` `+color list` | Add roles as colors your members can choose from.(Owner Only)  Remove a role from the 'color table'. (Owner Only) Change your color. List all colors. |
 | poll | \<string> \<list> | `+poll "Some description for the poll" ["Option 1", "Option 2", "Option3"]` | Create a poll. You can vote by reacting to the message. The creator of the poll can close it by reacting with a :x:. |
 | autrole | <add/remove> <@role> | `+autorole add @Member` `+autorole remove @cool` | Configure which roles should be automatically assigned to users joining the server. |
+| info | - | `+info` | Shows some information belonging to the bot. |

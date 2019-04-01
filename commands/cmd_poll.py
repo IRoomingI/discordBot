@@ -1,4 +1,7 @@
-import discord, uuid, Logger, copy
+import discord
+import uuid
+import Logger
+import copy
 
 
 # openPolls = {
@@ -13,8 +16,10 @@ import discord, uuid, Logger, copy
 # }
 
 openPolls = {}
-unicodeEmojis = {1: "\U00000031\U000020E3", 2: "\U00000032\U000020E3", 3: "\U00000033\U000020E3", 4: "\U00000034\U000020E3", 5: "\U00000035\U000020E3", 6: "\U00000036\U000020E3"}
-closed = ["\U0001f1e8", "\U0001f1f1", "\U0001f1f4", "\U0001f1f8", "\U0001f1ea", "\U0001f1e9"]
+unicodeEmojis = {1: "\U00000031\U000020E3", 2: "\U00000032\U000020E3", 3: "\U00000033\U000020E3",
+                 4: "\U00000034\U000020E3", 5: "\U00000035\U000020E3", 6: "\U00000036\U000020E3"}
+closed = ["\U0001f1e8", "\U0001f1f1", "\U0001f1f4",
+          "\U0001f1f8", "\U0001f1ea", "\U0001f1e9"]
 
 
 class Poll:
@@ -26,7 +31,7 @@ class Poll:
         self.creator = creator
         self.voters = {}
         for num in options:
-            self.voters.update({num : []})
+            self.voters.update({num: []})
 
     def add_voter(self, user, vote):
         self.voters[vote].append(user.id)
@@ -41,17 +46,17 @@ async def ex(args, message, client, invoke):
             for key in options:
                 desc += unicodeEmojis[key] + "  " + options[key] + " : **0**\n"
             poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title=title, description=desc))
-            openPolls.update({poll_id: Poll(title, desc, options, poll, message.author.id)})
+            openPolls.update(
+                {poll_id: Poll(title, desc, options, poll, message.author.id)})
             for uni in options:
                 await client.add_reaction(poll, unicodeEmojis[uni])
             await Logger.info("Successfully created poll with uuid '%s'." % poll_id)
         elif len(options) < 2:
-            await Logger.error("Can't create polls with less than two (2) options.", chat=True, chan=message.channel)
+            await Logger.error("Can't create polls with less than two (2) options.", chan=message.channel)
         else:
-            await Logger.error("Can't create polls with more than six (6) options.", chat=True, chan=message.channel)
+            await Logger.error("Can't create polls with more than six (6) options.", chan=message.channel)
     else:
-        await Logger.error("You need to enter the poll's description and its options.", chat=True, chan=message.channel)
-
+        await Logger.error("You need to enter the poll's description and its options.", chan=message.channel)
 
 
 async def vote(message, user, client, reaction):
@@ -91,7 +96,8 @@ async def close_poll(message, client):
 def change_message(content, poll, old_votes):
     newmsg = ""
     for key in poll.options:
-        newmsg += unicodeEmojis[key] + "  " + poll.options[key] + " : **%s**\n" % len(poll.voters[key])
+        newmsg += unicodeEmojis[key] + "  " + \
+            poll.options[key] + " : **%s**\n" % len(poll.voters[key])
     return newmsg
 
 

@@ -1,4 +1,5 @@
-import discord, Logger
+import discord
+import Logger
 from utils import color
 
 
