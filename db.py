@@ -84,8 +84,8 @@ def fetch_colors(sid):
     c.execute("SELECT name, role_id FROM colors WHERE sid=?", (sid, ))
     rows = c.fetchall()
     colors = {}
-    for i in range(0, len(rows)):
-        colors[rows[i][0]] = rows[i][1]
+    for role in rows:
+        colors[role[0]] = role[1]
     conn.close()
     return colors
 

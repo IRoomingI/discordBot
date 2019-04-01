@@ -1,5 +1,4 @@
 import Logger
-import discord
 from utils import config
 from datetime import datetime
 
