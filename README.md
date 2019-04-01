@@ -4,7 +4,14 @@ This is a bot written in Python with help of the [discord.py API](https://github
 
 **Important!** You should know how to create and set up a Discord bot
 
-Packages you need to run the bot:
+## Please Read
+
+Please don't think that this project will reach huge scales, like other bots coded by people much more talented than I am.
+This is project was started for fun and I can't promise frequent updates.
+
+## Installation
+
+Programs and packages you need to run the bot:
 
 * Python 3.5 or higher [[Download](https://python.org/downloads/ "Python Download")]
 
@@ -14,12 +21,7 @@ Packages you need to run the bot:
 
 * colorama package for Python (colored commandline output) `python3 -m pip install -U colorama`
 
-## Please Read
-
-Please don't think that this project will reach huge scales, like other bots coded by people much more talented than I am.
-This is project was started for fun and I can't promise frequent updates.
-
-## Installation
+Downloading and configuring the bot:
 
 * Clone or Download this repository to any place (I recommend a place you'll remember ;D)
 
