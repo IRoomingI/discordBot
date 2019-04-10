@@ -10,6 +10,8 @@ Please don't think that this project will reach huge scales, like other bots cod
 This is project was started for fun and I can't promise frequent updates.
 
 ## Installation
+<<<<<<< HEAD
+=======
 
 Programs and packages you need to run the bot:
 
@@ -22,10 +24,21 @@ Programs and packages you need to run the bot:
 * colorama package for Python (colored commandline output) `python3 -m pip install -U colorama`
 
 Downloading and configuring the bot:
+>>>>>>> e44256574f5ce7876ee5ed745a271f17e855359e
+
+Programs and packages you need to run the bot:
+
+* Python 3.7 is recommended [[Download](https://python.org/downloads/ "Python Download")]
+
+* pipenv for the packages and virtual environment `python3 -m pip install -U pipenv` (Linux / Mac) or `pip install -U pipenv` (Windows)
+
+Downloading and configuring the bot:
 
 * Clone or Download this repository to any place (I recommend a place you'll remember ;D)
 
-* Enter the folder and configure the _CONFIG.json_
+* Enter the directory and run `pipenv install`
+
+* Configure the _CONFIG.json_
 
     ```json
     "TOKEN" : "0123456789abcdefg"   (example Token)
@@ -34,7 +47,7 @@ Downloading and configuring the bot:
     "GAME" : "a game"               (game that the bot plays)
     ```
 
-* Execute the _main.py_ `python3 main.py`
+* Execute the _main.py_ `pipenv run python main.py`
 
 * **or** use the _start.sh_ if you are on Linux `sh start.sh` (make sure you are in the same folder and have _screen_ installed)
 

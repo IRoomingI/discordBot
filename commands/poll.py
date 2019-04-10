@@ -45,11 +45,11 @@ async def ex(args, message, client, invoke):
             desc = ""
             for key in options:
                 desc += unicodeEmojis[key] + "  " + options[key] + " : **0**\n"
-            poll = await client.send_message(message.channel, embed=discord.Embed(color=discord.Color.blue(), title=title, description=desc))
+            poll = await message.channel.send(embed=discord.Embed(color=discord.Color.blue(), title=title, description=desc))
             openPolls.update(
                 {poll_id: Poll(title, desc, options, poll, message.author.id)})
             for uni in options:
-                await client.add_reaction(poll, unicodeEmojis[uni])
+                await poll.add_reaction(unicodeEmojis[uni])
             await Logger.info("Successfully created poll with uuid '%s'." % poll_id)
         elif len(options) < 2:
             await Logger.error("Can't create polls with less than two (2) options.", chan=message.channel)
@@ -72,11 +72,11 @@ async def vote(message, user, client, reaction):
         option_number = int(str(emoji)[2])
         old_votes = copy.deepcopy(poll.voters)
         poll.add_voter(user, option_number)
-        await client.edit_message(message, embed=discord.Embed(color=discord.Color.blue(), title=poll.title, description=change_message(content, poll, old_votes)))
+        await message.edit(embed=discord.Embed(color=discord.Color.blue(), title=poll.title, description=change_message(content, poll, old_votes)))
     elif reaction.emoji == "\U0000274C":
         if user.id == poll.creator:
             await close_poll(message, client)
-    await client.remove_reaction(message, reaction.emoji, user)
+    await message.remove_reaction(reaction.emoji, user)
 
 
 def get_poll_id(message):
@@ -87,9 +87,9 @@ def get_poll_id(message):
 
 async def close_poll(message, client):
     poll_id = get_poll_id(message)
-    await client.clear_reactions(openPolls[poll_id].message)
+    await message.clear_reactions()
     for e in closed:
-        await client.add_reaction(openPolls[poll_id].message, e)
+        await openPolls[poll_id].message.add_reaction(e)
     await Logger.info("Successfully closed poll '%s'." % poll_id)
 
 

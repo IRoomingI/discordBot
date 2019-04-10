@@ -10,12 +10,12 @@ async def ex(args, message, client, invoke):
     bot_avatar = client.user.avatar_url
 
     embed = discord.Embed(title=client.user.name,
-                          description="A Discord bot coded by **Rooming** aka BIG WEEB :D\nType `%shelp` to get help with the commands" % config["PREFIX"], color=0x2cc85e)
+                          description="A Discord bot coded by **Rooming** aka BIG WEEB :D\nType `%shelp` to get help with the commands" % config.CONFIG["PREFIX"], color=0x2cc85e)
     embed.set_author(name="Rooming", url=rooming_invite,
                      icon_url=rooming_avatar)
     embed.set_thumbnail(url=bot_avatar)
     embed.add_field(name="Invite Link 🔗",
-                    value="[Invite this bot to your server 💯](%s)" % invite_url, inline=False)
+                    value="[Invite this bot to your guild 💯](%s)" % invite_url, inline=False)
     embed.add_field(name="Github Repo ⏫",
                     value="[Watch this project on Github or clone it yourself](%s)" % github_url, inline=False)
-    await client.send_message(message.channel, embed=embed)
+    await message.channel.send(embed=embed)

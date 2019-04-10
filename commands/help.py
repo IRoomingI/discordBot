@@ -13,7 +13,7 @@ cmds = {
     "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
     "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
     "poll": ['"description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."],
-    "autorole": ["add/remove/list", "Configure the roles that are assigned to users joining the server."],
+    "autorole": ["add/remove/list", "Configure the roles that are assigned to users joining the guild."],
     "info": ["/", "Shows some information belonging to the bot."]
 }
 
@@ -30,7 +30,7 @@ async def ex(args, message, client, invoke):
             msg = help_text()
     else:
         msg = help_text()
-    await client.send_message(message.channel, msg)
+    await message.channel.send(msg)
     await Logger.info("Successfully sent help text.")
 
 
@@ -39,7 +39,7 @@ def help_text(version="normal"):
         msg = "```--- Help ---\n\n"
         msg += "Date: " + datetime.now().strftime("%X | %A %d %B %Y") + "\n\n"
         for key in sorted(cmds):
-            msg += "\t" + config["PREFIX"] + key + "  " + \
+            msg += "\t" + config.CONFIG["PREFIX"] + key + "  " + \
                 "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
         msg += "\n------------```"
     elif version == "nsfw":

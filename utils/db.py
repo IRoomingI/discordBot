@@ -1,5 +1,5 @@
 import sqlite3
-import utils
+from utils import paint
 from sqlite3 import Error
 
 
@@ -36,22 +36,22 @@ def create_table(conn, create_table_sql):
         print(e)
 
 
-def create_server(sid, name, owner_id):
+def create_guild(sid, name, owner_id):
     conn = create_connection(database)
     c = conn.cursor()
     try:
         c.execute(
-            "INSERT INTO servers(sid, name, owner_id) VALUES(?, ?, ?)", (sid, name, owner_id))
+            "INSERT INTO guilds(sid, name, owner_id) VALUES(?, ?, ?)", (sid, name, owner_id))
         conn.commit()
     except sqlite3.IntegrityError:
         pass
     conn.close()
 
 
-def delete_server(sid):
+def delete_guild(sid):
     conn = create_connection(database)
     c = conn.cursor()
-    c.execute("DELETE FROM servers WHERE sid=?", (sid, ))
+    c.execute("DELETE FROM guilds WHERE sid=?", (sid, ))
     c.execute("DELETE FROM colors WHERE sid=?", (sid, ))
     c.execute("DELETE FROM autoroles WHERE sid=?", (sid, ))
     conn.commit()
@@ -121,7 +121,7 @@ def fetch_autoroles(sid):
     return autoroles
 
 
-sql_create_servers_table = """CREATE TABLE IF NOT EXISTS servers (
+sql_create_guilds_table = """CREATE TABLE IF NOT EXISTS guilds (
                                 sid text PRIMARY KEY,
                                 name text NOT NULL,
                                 owner_id text NOT NULL
@@ -142,11 +142,11 @@ sql_create_autoroles_table = """CREATE TABLE IF NOT EXISTS autoroles (
 
 conn = create_connection(database)
 if conn is not None:
-    create_table(conn, sql_create_servers_table)
+    create_table(conn, sql_create_guilds_table)
     create_table(conn, sql_create_colors_table)
     create_table(conn, sql_create_autoroles_table)
 else:
-    print(utils.color("Cannot create database connection!", "red"))
+    print(paint.color("Cannot create database connection!", "red"))
     exit()
 
 conn.close()
