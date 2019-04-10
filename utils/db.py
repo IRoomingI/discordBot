@@ -122,22 +122,22 @@ def fetch_autoroles(sid):
 
 
 sql_create_guilds_table = """CREATE TABLE IF NOT EXISTS guilds (
-                                sid text PRIMARY KEY,
+                                sid int PRIMARY KEY,
                                 name text NOT NULL,
-                                owner_id text NOT NULL
+                                owner_id int NOT NULL
                             ); """
 
 sql_create_colors_table = """CREATE TABLE IF NOT EXISTS colors (
                                 uid text PRIMARY KEY,
-                                sid text NOT NULL,
+                                sid int NOT NULL,
                                 name text NOT NULL,
-                                role_id text NOT NULL
+                                role_id int NOT NULL
 );"""
 
 sql_create_autoroles_table = """CREATE TABLE IF NOT EXISTS autoroles (
                                 uid text PRIMARY KEY,
-                                sid text NOT NULL,
-                                role_id text NOT NULL
+                                sid int NOT NULL,
+                                role_id int NOT NULL
 );"""
 
 conn = create_connection(database)

@@ -43,7 +43,7 @@ async def on_message(message):
                 await message.delete()
             await Logger.info("%s is executing command %s" % (paint.color(message.author.name + " (%s)" % message.author.id, "white"), paint.color(invoke, "blue")))
             await commands.get(invoke).ex(args, message, client, invoke)
-            config.CONFIG.update()
+            config.update()
         else:
             await message.delete()
             await Logger.error("Command not found: %s" % invoke, chan=message.channel)

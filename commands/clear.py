@@ -14,7 +14,7 @@ async def ex(args, message, client, invoke):
             return
 
         try:
-            await client.purge_from(message.channel, limit=amount)
+            await message.channel.purge(limit=amount)
         except discord.HTTPException:
             await Logger.error("Can't delete messages older than 14 days.", chan=message.channel)
         except discord.ClientException:

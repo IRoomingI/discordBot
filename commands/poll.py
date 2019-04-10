@@ -68,7 +68,7 @@ async def vote(message, user, client, reaction):
             already_voted = True
     if reaction.emoji in unicodeEmojis.values() and not already_voted:
         emoji = reaction.emoji.encode("unicode_escape")
-        content = message.embeds[0]["description"]
+        content = message.embeds[0].description
         option_number = int(str(emoji)[2])
         old_votes = copy.deepcopy(poll.voters)
         poll.add_voter(user, option_number)

@@ -50,9 +50,12 @@ async def ex(args, message, client, invoke):
         if message.author.id == CONFIG["OWNER_ID"] or message.author.id == message.guild.owner.id:
             if len(args) > 2:
                 color_name = args[1]
-                role_id = args[2][3:-1]
-                found = discord.utils.find(
-                    lambda add: add.id == role_id, message.guild.roles)
+                try:
+                    role_id = int(args[2][3:-1])
+                except ValueError:
+                    await Logger.error("Please use **@role** and check if the role is mentionable.", chan=message.channel)
+                    return
+                found = message.guild.get_role(role_id)
                 if len(args[2]) > 20 and found != None:
                     if color_name not in color_list:
                         db.create_color(message.guild.id, color_name, role_id)
@@ -83,7 +86,7 @@ async def ex(args, message, client, invoke):
         color = args[0]
         oldrole = get_old_roles(message)
         role = get_new_role(message, color)
-        if role != None:
+        if role == None:
             if len(color) > 0:
                 await Logger.error("Couldn't change to color because it doesn't exist: '%s'" % color, chan=message.channel)
             else:

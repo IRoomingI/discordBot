@@ -9,9 +9,12 @@ async def ex(args, message, client, invoke):
     if message.author.id == CONFIG["OWNER_ID"] or message.author.id == message.guild.owner.id:
         if len(args) > 1:
             if args[0] == "add" and len(args) > 1:
-                role_id = args[1][3:-1]
-                found = discord.utils.find(
-                    lambda add: add.id == role_id, message.guild.roles)
+                try:
+                    role_id = int(args[1][3:-1])
+                except ValueError:
+                    await Logger.error("Please use **@role** and check if the role is mentionable.", chan=message.channel)
+                    return
+                found = message.guild.get_role(role_id)
                 if found != None:
                     if role_id not in db.fetch_autoroles(message.guild.id):
                         db.create_autorole(message.guild.id, role_id)
