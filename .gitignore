@@ -1,8 +1,6 @@
-.idea
 .vscode
 __pycache__
 *.pyc
 devCONFIG.json
-devdata.json
 data.db
-*old*
+Pipfile.lock
