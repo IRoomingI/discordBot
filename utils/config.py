@@ -2,7 +2,7 @@ import json
 
 # Load config and data
 
-mode = "dev"
+mode = "prod"
 
 # Load config
 def load():
