@@ -10,21 +10,6 @@ Please don't think that this project will reach huge scales, like other bots cod
 This is project was started for fun and I can't promise frequent updates.
 
 ## Installation
-<<<<<<< HEAD
-=======
-
-Programs and packages you need to run the bot:
-
-* Python 3.5 or higher [[Download](https://python.org/downloads/ "Python Download")]
-
-* discord.py package for Python (look at [discord.py](https://github.com/Rapptz/discord.py "discord.py Github Page") GitHub for installation info)
-
-* asyncio package for Python `python3 -m pip install -U asyncio`
-
-* colorama package for Python (colored commandline output) `python3 -m pip install -U colorama`
-
-Downloading and configuring the bot:
->>>>>>> e44256574f5ce7876ee5ed745a271f17e855359e
 
 Programs and packages you need to run the bot:
 
