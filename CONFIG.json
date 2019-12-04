@@ -1,6 +1,6 @@
 {
     "TOKEN": "BOT_TOKEN_HERE",
     "PREFIX": "+",
-    "OWNER_ID": 012345678910111213,
+    "OWNER_ID": "012345678910111213",
     "GAME": "alone D:"
 }

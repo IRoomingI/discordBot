@@ -28,7 +28,7 @@ Downloading and configuring the bot:
     ```json
     "TOKEN" : "0123456789abcdefg"   (example Token)
     "PREFIX" : "COMMAND_PREFIX"     (default is "+")
-    "OWNER_ID" : 22234234354326     (your discord user id)
+    "OWNER_ID" : "22234234354326"     (your discord user id)
     "GAME" : "a game"               (game that the bot plays)
     ```
 
