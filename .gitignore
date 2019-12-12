@@ -4,3 +4,4 @@ __pycache__
 devCONFIG.json
 data.db
 Pipfile.lock
+devStart.sh
