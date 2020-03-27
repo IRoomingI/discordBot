@@ -113,8 +113,9 @@ except ConnectionResetError:
 except discord.LoginFailure:
     print("It seems like no %s was given or it was incorrect. Please check the %s!" % (
         paint.color("Discord Bot Token", "red"), paint.color("CONFIG.json", "blue")))
+    client.loop.run_until_complete(client.logout())
 except KeyboardInterrupt:
-    pass
+    client.loop.run_until_complete(client.logout())
 finally:
     client.loop.close()
     print("\nShutting down...")
