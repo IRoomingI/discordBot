@@ -7,7 +7,7 @@ This is a bot written in Python with help of the [discord.py API](https://github
 ## Please Read
 
 Please don't think that this project will reach huge scales, like other bots coded by people much more talented than I am.
-This is project was started for fun and I can't promise frequent updates.
+This project was started for fun and I can't promise frequent updates.
 
 ## Installation
 
