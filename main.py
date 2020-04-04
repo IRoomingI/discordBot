@@ -70,7 +70,7 @@ async def on_member_join(member):
         auto_roles = []
         for r in role_ids:
             found = member.guild.get_role(r)
-            if found != None:
+            if found is not None:
                 auto_roles.append(found)
         if len(auto_roles) > 0:
             try:
