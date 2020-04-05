@@ -12,7 +12,7 @@ async def info(text, chan=None, delete=True):
     """Displays an information in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("INFO", "green") + " ]"
     print(form(pref, text))
-    if chan != None:
+    if chan is not None:
         await send_chat(text, 0x2ecc71, chan, delete)
 
 
@@ -20,7 +20,7 @@ async def error(text, chan=None, delete=True):
     """Displays an error in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("ERROR", "red") + " ]"
     print(form(pref, text))
-    if chan != None:
+    if chan is not None:
         await send_chat(text, 0xe74c3c, chan, delete)
 
 
@@ -28,8 +28,9 @@ async def warn(text, chan=None, delete=True):
     """Displays a warning in the terminal and if wanted also to the Discord channel."""
     pref = "[ " + color("WARN", "yellow") + " ]"
     print(form(pref, text))
-    if chan != None:
+    if chan is not None:
         await send_chat(text, 0xf1c40f, chan, delete)
+
 
 # Format the message
 

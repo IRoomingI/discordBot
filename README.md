@@ -26,10 +26,10 @@ Downloading and configuring the bot:
 * Configure the _CONFIG.json_
 
     ```json
-    "TOKEN" : "0123456789abcdefg"   (example Token)
-    "PREFIX" : "COMMAND_PREFIX"     (default is "+")
-    "OWNER_ID" : 239147465104818176 (your discord user id)
-    "GAME" : "a game"               (game that the bot plays)
+    "TOKEN" : "0123456789abcdefg"        (example Token)
+    "DEFAULT_PREFIX" : "COMMAND_PREFIX"  (default is "+")
+    "OWNER_ID" : 239147465104818176      (your discord user id)
+    "GAME" : "a game"                    (game that the bot plays)
     ```
 
 * Execute the _main.py_ `pipenv run python main.py`
@@ -51,9 +51,9 @@ Arguments in these brackets <> mean they are neccessary. Arguments in \[ ] are o
 | ping | \[string] | `+ping` | Sends you a private message saying "Pong!" with your optionally attached arguments. |
 | say | \<string> | `+say Hello World!` | The bot sends the text as a message and deletes your message. |
 | game | \<string> | `+game Half Life 3?` | Changes the game the bot is playing to the text you enter. |
-| prefix | \<string> | `+prefix ~` | Changes the preferred command prefix (max length is 8). _OWNER ONLY_ |
+| prefix | \<string/list> | `+prefix ~` | Changes the preferred command prefix (max length is 8). _GUILD OWNER ONLY_ |
 | nick | \<string> | `+nick A better name` | Changes your nickname on the server. |
-| color | <add/remove/list/color_name> \[@role] | `+color add red @redrole` `+color remove green` `+color red` `+color list` | Add roles as colors your members can choose from.(Owner Only)  Remove a role from the 'color table'. (Owner Only) Change your color. List all colors. |
+| color | <add/remove/list/color_name> \[@role] | `+color add red @redrole` `+color remove green` `+color red` `+color list` | Add roles as colors your members can choose from (Guild Owner Only). Remove a role from the 'color table' (Guild Owner Only). Change your color. List all colors. |
 | poll | \<string> \<list> | `+poll "Some description for the poll" ["Option 1", "Option 2", "Option3"]` | Create a poll. You can vote by reacting to the message. The creator of the poll can close it by reacting with a :x:. |
 | autrole | <add/remove> <@role> | `+autorole add @Member` `+autorole remove @cool` | Configure which roles should be automatically assigned to users joining the server. |
 | info | - | `+info` | Shows some information belonging to the bot. |

@@ -1,6 +1,6 @@
 {
     "TOKEN": "BOT_TOKEN_HERE",
-    "PREFIX": "+",
+    "DEFAULT_PREFIX": "+",
     "OWNER_ID": 239147465104818176,
-    "GAME": "alone D:"
+    "ACTIVITY": {"GAME" : "alone D:"}
 }

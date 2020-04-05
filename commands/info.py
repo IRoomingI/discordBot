@@ -1,5 +1,5 @@
 import discord
-from utils import config
+from utils import db
 
 
 async def ex(args, message, client, invoke):
@@ -11,7 +11,7 @@ async def ex(args, message, client, invoke):
     bot_avatar = str(client.user.avatar_url)
 
     embed = discord.Embed(title=client.user.name,
-                          description="A Discord bot coded by **Rooming** aka BIG WEEB :D\nType `%shelp` to get help with the commands" % config.CONFIG["PREFIX"], color=0x2cc85e)
+                          description="A Discord bot coded by **Rooming** aka BIG WEEB :D\nType `%shelp` to get help with the commands" % db.fetch_prefix(message.guild.id), color=0x2cc85e)
     embed.set_author(name="Rooming", url=rooming_invite,
                      icon_url=rooming_avatar)
     embed.set_thumbnail(url=bot_avatar)

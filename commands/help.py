@@ -1,50 +1,49 @@
 import Logger
-from utils import config
+from utils import db
 from datetime import datetime
+from discord import Embed
 
 
 cmds = {
-    "clear": ["number", "Remove multiple messages at once. Limit: 99 messages, Can't be older than 14 days."],
-    "ping": ["/", "Get a DM from the Bot saying 'Pong!'."],
-    "say": ["text", "Let the Bot say something."],
-    "help": ["/", "Show the help text."],
+    "clear": ["number", "Remove multiple messages at once. Limit: 99 messages. Can't be older than 14 days."],
+    "ping": ["/", "Get a DM from the bot saying 'Pong!'."],
+    "say": ["text", "Let the bot say something."],
+    "help": ["command", "Show the help text."],
     "color": ["color_name/list/add/remove", "Set your displayed name color or manage colors."],
-    "game": ["text", "Change the game that the bot is currently playing."],
-    "prefix": ["text", "OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
+    "activity": ["game/streaming/custom", "text", "Change the activity of the bot."],
+    "prefix": ["text/list", "GUILD OWNER ONLY! Change the command prefix. Prefix length should be between 1 and 8."],
     "nick": ["text", "Change your nick name. (Can't change the owners nickname)."],
-    "poll": ['"description" ["option1", "option2", "..."]', "Create a poll with up to 6 options."],
-    "autorole": ["add/remove/list", "Configure the roles that are assigned to users joining the guild."],
+    "poll": ['"description"', '["option1", "option2", "..."]', "Create a poll. You can vote by reacting to the message. The creator of the poll can close it by reacting with a ❌."],
+    "autorole": ["add/remove/list" "@role", "Configure the roles that are assigned to users joining the guild."],
     "info": ["/", "Shows some information belonging to the bot."]
 }
 
-porn = ["http://www.xvideos.com/", "http://www.youporn.com/", "http://xhamster.com/", "http://www.xnxx.com/", "http://www.youjizz.com/",
-        "http://www.mofosex.com/", "http://www.befuck.com/", "http://www.pornhub.com/", "http://xxxbunker.com/", "http://www.drtuber.com/",
-        "http://www.pornhost.com/", "http://www.tube8.com/", "http://spankbang.com/"]
-
 
 async def ex(args, message, client, invoke):
-    if len(args) > 0:
-        if str(args[0]).lower() == "me":
-            msg = help_text("nsfw")
-        else:
-            msg = help_text()
-    else:
-        msg = help_text()
-    await message.channel.send(msg)
-    await Logger.info("Successfully sent help text.")
+    PREFIX = db.fetch_prefix(message.guild.id)
+    if len(args) == 0:
+        embed = Embed(title="Help", description="For detailed information use: `+help command`", color=0x2cc85e)
 
-
-def help_text(version="normal"):
-    if version == "normal":
-        msg = "```--- Help ---\n\n"
-        msg += "Date: " + datetime.now().strftime("%X | %A %d %B %Y") + "\n\n"
+        args = ""
+        command = ""
         for key in sorted(cmds):
-            msg += "\t" + config.CONFIG["PREFIX"] + key + "  " + \
-                "<" + cmds[key][0] + ">  »" + cmds[key][1] + "« \n"
-        msg += "\n------------```"
-    elif version == "nsfw":
-        msg = "``` Stop it, get some help:\n\n"
-        for p in porn:
-            msg += "- %s\n" % p
-        msg += "```"
-    return msg
+            for arg in cmds[key][:-1]:
+                args += "<" + arg + "> "
+            args += "\n"
+            command += PREFIX + key + "\n"
+
+        embed.add_field(name="Command", value=command)
+        embed.add_field(name="Arguments", value=args)
+        embed.set_footer(text="Date: %s" % datetime.now().strftime("%X | %A %d %B %Y"))
+
+        await message.channel.send(embed=embed)
+        await Logger.info("Successfully sent help text.")
+    else:
+        cmd = args[0].lower()
+        if cmd in cmds.keys():
+            desc = f"""`{PREFIX}{cmd} {" ".join(cmds[cmd][:-1])}`\n\n{cmds[cmd][-1]}"""
+            embed = Embed(title=args[0].capitalize(), description=desc, color=0x2cc85e)
+            await message.channel.send(embed=embed)
+            await Logger.info("Successfully sent help text for %s" % cmd)
+        else:
+            await Logger.error("Command `%s` not found!" % cmd, chan=message.channel)

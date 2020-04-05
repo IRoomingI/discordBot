@@ -1,5 +1,5 @@
 import sqlite3
-from utils import paint
+from utils import paint, config
 from sqlite3 import Error
 
 
@@ -41,7 +41,7 @@ def create_guild(sid, name, owner_id):
     c = conn.cursor()
     try:
         c.execute(
-            "INSERT INTO guilds(sid, name, owner_id) VALUES(?, ?, ?)", (sid, name, owner_id))
+            "INSERT INTO guilds(sid, name, owner_id, prefix) VALUES(?, ?, ?, ?)", (sid, name, owner_id, config.CONFIG["DEFAULT_PREFIX"]))
         conn.commit()
     except sqlite3.IntegrityError:
         pass
@@ -121,11 +121,44 @@ def fetch_autoroles(sid):
     return autoroles
 
 
+# Prefix area
+
+def change_prefix(sid, prefix):
+    conn = create_connection(database)
+    c = conn.cursor()
+    c.execute("UPDATE guilds SET prefix = ? WHERE sid=?",
+              (prefix, sid))
+    conn.commit()
+    conn.close()
+
+
+def fetch_prefix(sid):
+    conn = create_connection(database)
+    c = conn.cursor()
+    c.execute("SELECT prefix FROM guilds WHERE sid=?", (sid, ))
+    prefix = c.fetchone()[0]
+    conn.close()
+    return prefix
+
+
+def fetchall_prefix():
+    conn = create_connection(database)
+    c = conn.cursor()
+    c.execute("SELECT name, prefix FROM guilds")
+    rows = c.fetchall()
+    guild_prefix_dict = {}
+    for r in rows:
+        guild_prefix_dict[r[0]] = r[1]
+    conn.close()
+    return guild_prefix_dict
+
+
 sql_create_guilds_table = """CREATE TABLE IF NOT EXISTS guilds (
                                 sid int PRIMARY KEY,
                                 name text NOT NULL,
-                                owner_id int NOT NULL
-                            ); """
+                                owner_id int NOT NULL,
+                                prefix text NOT NULL
+); """
 
 sql_create_colors_table = """CREATE TABLE IF NOT EXISTS colors (
                                 uid text PRIMARY KEY,

@@ -1,4 +1,7 @@
-import json, sys
+import json
+import sys
+import Logger
+from utils import paint
 
 # Load config and data
 
@@ -7,11 +10,13 @@ if len(sys.argv) > 1 and sys.argv[1] == "dev":
 else:
     dev = False
 
+
 # Load config
 def load():
     with open("CONFIG.json" if not dev else "devCONFIG.json", "r", encoding="utf-8") as f:
         config = json.load(f)
     return config
+
 
 # Update config
 def update():
@@ -20,3 +25,5 @@ def update():
 
 
 CONFIG = load()
+
+print("Successfully loaded %s%s!" % (paint.color("dev", "blue") if dev else "", paint.color("CONFIG.json", "blue")))

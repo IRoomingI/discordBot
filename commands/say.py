@@ -2,6 +2,7 @@ import discord
 import Logger
 from utils import paint
 
+
 async def ex(args, message, client, invoke):
     if len(args) > 0:
         out = " ".join(args)
