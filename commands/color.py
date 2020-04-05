@@ -1,6 +1,5 @@
 from utils import db
 import discord
-import asyncio
 import Logger
 
 

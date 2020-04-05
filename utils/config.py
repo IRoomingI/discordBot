@@ -1,6 +1,5 @@
 import json
 import sys
-import Logger
 from utils import paint
 
 # Load config and data

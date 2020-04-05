@@ -1,5 +1,4 @@
-import asyncio
-from discord import Color, Embed
+from discord import Embed
 from utils import paint
 
 
