@@ -25,7 +25,7 @@ Downloading and configuring the bot:
 
 * Configure the _CONFIG.json_
 
-    ```json
+    ```
     "TOKEN" : "0123456789abcdefg"        (example Token)
     "DEFAULT_PREFIX" : "COMMAND_PREFIX"  (default is "+")
     "OWNER_ID" : 239147465104818176      (your discord user id)
