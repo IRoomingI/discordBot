@@ -7,7 +7,7 @@ async def ex(args, message, client, invoke):
     github_url = "https://github.com/IRoomingI/discordBot"
     rooming = discord.utils.find(lambda g: g.id == 239148743222493186, client.guilds).owner
     rooming_avatar = str(rooming.avatar_url)
-    rooming_invite = "https://discord.gg/NfGEYrU"
+    rooming_invite = "https://discord.gg/SqWz4ea"
     bot_avatar = str(client.user.avatar_url)
 
     embed = discord.Embed(title=client.user.name,
