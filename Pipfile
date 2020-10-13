@@ -8,5 +8,5 @@ pylint = "*"
 autopep8 = "*"
 
 [packages]
-discord-py = "*"
+discord-py = "1.4.2"
 colorama = "*"
